@@ -5,6 +5,7 @@ public class Employee {
 		System.out.println("Mere skod blallala");
 		System.out.prinntln("Skrevet af Sebastian");
 		System.out.println("Test")
+		System.out.println("Hej med dig " ); 
 	}
 
 }
