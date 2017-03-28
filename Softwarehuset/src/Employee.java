@@ -12,6 +12,7 @@ public class Employee {
 	}
 
 	// Har vi brug for denne metode????
+	// -- Test af merge --
 	public String getName() {
 		return Name;
 		
