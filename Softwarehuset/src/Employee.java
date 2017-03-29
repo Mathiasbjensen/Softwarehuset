@@ -13,12 +13,13 @@ public class Employee {
 
 	// Har vi brug for denne metode????
 	// -- Test af merge --
+	// mÃ¥ske
 	public String getName() {
 		return Name;
 		
 		
 	}
-	// Returner intialier på User 
+	// Returner intialier pï¿½ User 
 	public String GetID(){ 
 		return ID;
 	}
