@@ -4,7 +4,8 @@ import java.util.List;
 public class Employee {
 	private String ID;
 	private String Name;
-	private List<Employee> Employees = new ArrayList<Employee>();
+	private List<Activity> assignedActivity = new ArrayList<Activity>();
+	
 	
 	
 	public Employee(String ID) {
@@ -23,11 +24,16 @@ public class Employee {
 	public String GetID(){ 
 		return ID;
 	}
-
-
-
-	public List<Employee> getEmployees() {
+	
+	public void addAssignedActivity(Activity activity) {
+		assignedActivity.add(activity);
 		
-		return Employees;
+		
 	}
+	
+	public List<Activity> getAssignedActivity() {
+		return assignedActivity;
+	}
+
+
 }

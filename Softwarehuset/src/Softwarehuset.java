@@ -6,7 +6,7 @@ public class Softwarehuset {
 
 
 	private List<Employee> employees = new ArrayList<Employee>();
-	//private List<ProjectLeader> projectLeaders = new Arraylist<ProjectLeader>();
+	private List<ProjectLeader> projectLeaders = new ArrayList<ProjectLeader>();
 	private List<Project> projects = new ArrayList<Project>();
 	private List <Employee> freeEmployees = new ArrayList<Employee>();
 
@@ -56,6 +56,7 @@ public class Softwarehuset {
 	public List<Project> getProjects() {
 		return projects;
 	}
+	
 
 	public String getRunningNumber() {
 		this.runningNumber = runningNumber++;
@@ -78,6 +79,7 @@ public class Softwarehuset {
 		return x;
 	}
 
+	
 
 
 
