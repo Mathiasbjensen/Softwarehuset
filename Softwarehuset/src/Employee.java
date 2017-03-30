@@ -33,6 +33,7 @@ public class Employee {
 	
 	public List<Activity> getAssignedActivity() {
 		return assignedActivity;
+		
 	}
 
 
