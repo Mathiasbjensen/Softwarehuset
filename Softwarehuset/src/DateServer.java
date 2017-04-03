@@ -10,6 +10,9 @@ public class DateServer {
 		int week = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
 		System.out.println(week);
 		
+		int day = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+		System.out.println(day);
+		
 	}
 	
 	public int getYear() {
@@ -18,8 +21,13 @@ public class DateServer {
 	}
 	
 	public int getWeek() {
-		int week = Calendar.getInstance().get(Calendar.WEEK_OF_MONTH);
+		int week = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
 		return week;
+	}
+	
+	public int getDay() {
+		int day = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+		return day;
 	}
 
 }

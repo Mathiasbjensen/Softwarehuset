@@ -19,7 +19,7 @@ public class Softwarehuset {
 	public void addEmployee(String ID) throws OperationNotAllowedException{
 		if(ID.length()== 4){
 
-			Employee newEmployee = new Employee(ID);
+			Employee newEmployee = new Employee(ID, this);
 			employees.add(newEmployee);
 			freeEmployees.add(newEmployee);
 		} 
