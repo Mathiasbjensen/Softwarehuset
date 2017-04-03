@@ -9,6 +9,8 @@ public class Project {
 	private int expectedTime;
 	private Softwarehuset sh;
 	private List<Activity> Activities = new ArrayList<Activity>();
+	// Stupid to have an array for ONE projectleader??
+	private List<ProjectLeader> projectLeaders = new ArrayList<ProjectLeader>();
 	
 	
 	public Project(String projectName, int expectedTime, Softwarehuset softwarehuset) {
@@ -31,6 +33,7 @@ public class Project {
 				
 			ProjectLeader projectLeader = new ProjectLeader(employee, this);
 			sh.getFreeEmployees(week).remove(employee);
+			projectLeaders.add(projectLeader);
 			
 			}
 			else {
@@ -39,6 +42,10 @@ public class Project {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public List<ProjectLeader> getProjectLeader() {
+		return projectLeaders;
 	}
 	
 	// CONSIDER GIVING ACTIVITY A NAME???????

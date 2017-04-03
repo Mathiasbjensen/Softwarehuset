@@ -5,6 +5,7 @@ import org.junit.Test;
 public class SoftwarehusetTest {
 	Softwarehuset sh = new Softwarehuset();
 	
+	
 	@Test
 	// Testing if we can add an employee to the array.
 	public void addEmployeeTest() throws Exception {
@@ -63,12 +64,13 @@ public class SoftwarehusetTest {
 	public void assignPLTest() throws Exception{
 		sh.addEmployee("Hans");
 		sh.addEmployee("qwer");
-		sh.addProject("testproject", 50, sh);
-		// VI ER IGANG MED AT LAVE GET EMPLOYEE BY ID 
-		//ProjectLeader pl = new ProjectLeader()
+//		sh.addProject("testproject", 50, sh);
+//		 VI ER IGANG MED AT LAVE GET EMPLOYEE BY ID 
+//		ProjectLeader pl = new ProjectLeader(sh.employeeByID("qwer"), project);
 		
-		
-		
+		Project project = new Project("testproject", 50, sh);
+		project.assignProjectLeader(sh.getEmployeeByID("qwer"), sh.dateserver.getWeek());
+		assertEquals(1,project.getProjectLeader().size());
 		
 		
 		
