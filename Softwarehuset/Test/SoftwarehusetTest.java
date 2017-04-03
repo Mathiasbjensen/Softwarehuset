@@ -58,4 +58,20 @@ public class SoftwarehusetTest {
 		}
 	}
 	
+	//Testing if we can assign a project leader
+	@Test
+	public void assignPLTest() throws Exception{
+		sh.addEmployee("Hans");
+		sh.addEmployee("qwer");
+		sh.addProject("testproject", 50, sh);
+		// VI ER IGANG MED AT LAVE GET EMPLOYEE BY ID 
+		//ProjectLeader pl = new ProjectLeader()
+		
+		
+		
+		
+		
+		
+	}
+	
 }

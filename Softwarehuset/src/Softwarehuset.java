@@ -8,12 +8,18 @@ public class Softwarehuset {
 	private List<Employee> employees = new ArrayList<Employee>();
 	private List<ProjectLeader> projectLeaders = new ArrayList<ProjectLeader>();
 	private List<Project> projects = new ArrayList<Project>();
-	private List <Employee> freeEmployees = new ArrayList<Employee>();
+//	private List <Employee> freeEmployees = new ArrayList<Employee>();
+	private ArrayList[] freeEmployees = new ArrayList[52];
 
 	DateServer dateserver = new DateServer();
 	private int runningNumber = 0;
 	private String x;
 
+	public Softwarehuset(){
+		for(int i = 0; i < freeEmployees.length; i++) {
+			freeEmployees[i] = new ArrayList<Employee>();
+		}
+	}
 
 
 	public void addEmployee(String ID) throws OperationNotAllowedException{
@@ -21,7 +27,9 @@ public class Softwarehuset {
 
 			Employee newEmployee = new Employee(ID, this);
 			employees.add(newEmployee);
-			freeEmployees.add(newEmployee);
+			
+			for(int i = 0; i < freeEmployees.length; i++)
+			freeEmployees[i].add(newEmployee);
 		} 
 		else {
 			throw new OperationNotAllowedException("ID has to be 4 letters","Add employee");
@@ -32,12 +40,18 @@ public class Softwarehuset {
 		return employees;
 
 	}
-
-	public List<Employee> getFreeEmployees() {
-		return freeEmployees;
-
+	//Revurder eventuelt saa man kan have start og slut som parameter
+	public ArrayList getFreeEmployees(int week)throws Exception {
+		
+		ArrayList<Employee> free = new ArrayList<Employee>();		
+		if(freeEmployees[week].size() == 0 ) {
+			throw new OperationNotAllowedException("No free employees this week", "get free employees");
+		}
+		
+		return freeEmployees[week];
 	}
 
+	
 	public void addProject(String projectName, int expectedTime, Softwarehuset softwarehuset) throws Exception {
 
 		for(int i = 0; i < projects.size(); i++) {
@@ -78,8 +92,13 @@ public class Softwarehuset {
 		}
 		return x;
 	}
-
 	
+	public Employee employeeByID(String ID){
+	for (int i = 0; i < employees.size();i++) {
+        if(employees.get(i).getID().equals(ID)) {
+            return employees.get(i);
+        }
+	}
 
 
 

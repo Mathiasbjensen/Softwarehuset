@@ -4,7 +4,8 @@ import java.util.List;
 public class Activity {
 	
 	private int budgetTime;
-	int totalHours, start, end;
+	int start, end;
+	double totalHours;
 	private List<Employee> ActivityEmployees = new ArrayList<Employee>();
 	
 	public Activity(int budgetTime, int start, int end) {
@@ -43,11 +44,11 @@ public class Activity {
 		return budgetTime;
 	}
 	
-	public void setWorkHours(int hours) {
+	public void setWorkHours(double hours) {
 		this.totalHours+=hours;
 	}
 	
-	public int getWorkHours() {
+	public double getWorkHours() {
 		return totalHours;
 	}
 	

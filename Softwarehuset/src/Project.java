@@ -25,15 +25,19 @@ public class Project {
 		return projectName;
 	}
 	
-	public void assignProjectLeader(Employee employee) throws OperationNotAllowedException {
-		if(sh.getFreeEmployees().contains(employee)) {
+	public void assignProjectLeader(Employee employee, int week) throws OperationNotAllowedException {
+		try {
+			if(sh.getFreeEmployees(week).contains(employee)) {
+				
+			ProjectLeader projectLeader = new ProjectLeader(employee, this);
+			sh.getFreeEmployees(week).remove(employee);
 			
-		ProjectLeader projectLeader = new ProjectLeader(employee, this);
-		sh.getFreeEmployees().remove(employee);
-		
-		}
-		else {
-			throw new OperationNotAllowedException("The employee is not available", "Assign project leader");
+			}
+			else {
+				throw new OperationNotAllowedException("The employee is not available", "Assign project leader");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
