@@ -76,6 +76,12 @@ public class Employee {
 		
 	}
 	
+	//skod1
+	
+	//skod 2
+	
+	// skod 3
+	
 	public double getWorkHours(){
 		return hoursChanged;
 	}
