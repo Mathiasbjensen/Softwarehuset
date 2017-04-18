@@ -74,6 +74,8 @@ public class Employee {
 			throw new OperationNotAllowedException("You still need to register "+(hours-hoursChanged)+" for today","Missing hours");
 		}
 		
+		//hej med dig
+		
 	}
 	
 	public double getWorkHours(){
