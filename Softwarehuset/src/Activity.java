@@ -4,14 +4,20 @@ import java.util.List;
 public class Activity {
 	
 	private int budgetTime;
-	int start, end;
-	double totalHours;
+	private int start, end;
+	private double totalHours;
+	private String activityName;
 	private List<Employee> ActivityEmployees = new ArrayList<Employee>();
 	
-	public Activity(int budgetTime, int start, int end) {
+	public Activity(int budgetTime, int start, int end, String activityName) {
 		this.budgetTime = budgetTime;
 		this.start = start;
 		this.end = end;
+		this.activityName = activityName;
+	}
+	
+	public String getActivityName() {
+		return activityName;
 	}
 	
 	public void assignEmployee(Employee employee) {
@@ -54,8 +60,8 @@ public class Activity {
 	
 	// Til test
 	public static void main(String[] args) {
-		Activity hans = new Activity(200, 1,2);
-		Activity skod = new Activity(300,2,3);
+		Activity hans = new Activity(200, 1,2,"hans");
+		Activity skod = new Activity(300,2,3,"grete");
 		hans.setBudgetTime(2);
 		System.out.println(hans.getETA());
 	}

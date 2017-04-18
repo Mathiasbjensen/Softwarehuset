@@ -67,6 +67,7 @@ public class Softwarehuset {
 		return free;
 	}	
 		
+	
 		public void removeFreeEmployee(Employee employee, int weekStart, int weekEnd) {
 			for (int i = weekStart; i <= weekEnd; i++) {
 				freeEmployees[i].remove(employee);
@@ -134,8 +135,6 @@ public class Softwarehuset {
         }  
 	}
 	return null;
-
-
 	}
 
 

@@ -69,7 +69,7 @@ public class SoftwarehusetTest {
 	
 		
 		Project project = new Project("testproject", 50, sh);
-		project.assignProjectLeader(sh.getEmployeeByID("qwer"), sh.dateserver.getWeek());
+		project.assignProjectLeader("qwer");
 		assertEquals(1,project.getProjectLeader().size());
 		
 		
@@ -80,9 +80,14 @@ public class SoftwarehusetTest {
 	public void addEmployeeToActivityTest() throws Exception{
 		sh.addEmployee("skod");
 		sh.addEmployee("anne");
-		sh.getEmployeeByID("skod");
-		sh.addProject("test",50,sh);
+	
+	
+		sh.addProject("test",500,sh);
+		Project project = sh.getProjectByName("test");
+		project.assignProjectLeader("anne");
+		project.getProjectLeader().get(0).addActivity(75, 2, 5,"activityTest");
 		
+		sh.getEmployeeByID("skod").addEmployeeToActivity(project.getActivityByName("activityTest"));
 		
 		
 	}
@@ -93,7 +98,7 @@ public class SoftwarehusetTest {
 //		sh.addEmployee("anne");
 //		
 //		
-//		
+//	
 //	}
 	
 }

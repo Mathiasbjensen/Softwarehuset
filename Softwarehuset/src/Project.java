@@ -8,7 +8,7 @@ public class Project {
 	private String projectName;
 	private int expectedTime;
 	private Softwarehuset sh;
-	private List<Activity> Activities = new ArrayList<Activity>();
+	private List<Activity> activities = new ArrayList<Activity>();
 	// Stupid to have an array for ONE projectleader??
 	private List<ProjectLeader> projectLeaders = new ArrayList<ProjectLeader>();
 	
@@ -28,7 +28,8 @@ public class Project {
 	}
 	
 	// Assigns an employee to a project leader
-	public void assignProjectLeader(Employee employee, int week) throws OperationNotAllowedException {
+	public void assignProjectLeader(String employeeID) throws OperationNotAllowedException {
+		Employee employee = sh.getEmployeeByID(employeeID);
 		try {
 			if(sh.getEmployees().contains(employee)) {
 				
@@ -48,11 +49,24 @@ public class Project {
 		return projectLeaders;
 	}
 	
+
+	
 	// CONSIDER GIVING ACTIVITY A NAME???????
-	public void addActivity(int budgetTime, int start, int end) {
-		Activity activity = new Activity(budgetTime, start, end);
-		Activities.add(activity);
+	public void addActivity(int budgetTime, int start, int end, String activityName) {
+		Activity activity = new Activity(budgetTime, start, end, activityName);
+		activities.add(activity);
 	}
+	
+	public Activity getActivityByName(String activityName) {
+		for (int i = 0; i < activities.size();i++) {
+	        if(activities.get(i).getActivityName().equals(activityName)) {
+	            return activities.get(i);
+	        }  
+		}
+		return null;
+
+
+		}
 	
 
 	
