@@ -64,9 +64,9 @@ public class SoftwarehusetTest {
 	public void assignPLTest() throws Exception{
 		sh.addEmployee("Hans");
 		sh.addEmployee("qwer");
-//		sh.addProject("testproject", 50, sh);
+		sh.addProject("testproject", 50, sh);
 //		 VI ER IGANG MED AT LAVE GET EMPLOYEE BY ID 
-//		ProjectLeader pl = new ProjectLeader(sh.employeeByID("qwer"), project);
+	
 		
 		Project project = new Project("testproject", 50, sh);
 		project.assignProjectLeader(sh.getEmployeeByID("qwer"), sh.dateserver.getWeek());

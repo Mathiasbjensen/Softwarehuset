@@ -8,12 +8,13 @@ public class Employee {
 	private int week;
 	private double hoursChanged;
 	private Softwarehuset sh;
-	private int day = sh.dateserver.getDay();
+	private int day;
 	private ArrayList[] weekCalendar = new ArrayList[52];
 	
 	
 	public Employee(String ID, Softwarehuset softwarehuset) {
 		this.sh = softwarehuset;
+		this.day = sh.dateserver.getDay();
 		this.ID = ID;
 	
 		for(int i = 0; i < weekCalendar.length; i++) {
