@@ -35,9 +35,9 @@ public class Employee {
 		return ID;
 	}
 	
-	public void addAssignedActivity(Activity activity) throws Exception{
+	public void isEmployeeFree(Activity activity) throws Exception{
 	
-		//Checking if the employee has enough weeks available to be assigned to the project.
+		//Checking if the employee has enough weeks available to be assigned to the activity.
 		for(int i = activity.getStart()-1; i <= activity.getEnd()-1; i++) {
 		if(weekCalendar[i].contains(activity) ) {
 			throw new OperationNotAllowedException("Employee already assigned to that activity", "add Assigned Activity");
@@ -46,11 +46,18 @@ public class Employee {
 			throw new OperationNotAllowedException("The employee is already assigned to 20 other activities in week: "+i,"add Assigned Activity");
 		}
 		}
-		
+	}
+	public void addEmployeeToActivity(Activity activity) {
 		// Adding the activity to the week calendar.
 		for(int i = activity.getStart()-1; i <= activity.getEnd()-1; i++) {
 		weekCalendar[i].add(activity);
+		// Removing the employee from being "free" if he is working on 20 activities.
+		if (weekCalendar[i].size() == 20) {
+			
+			sh.removeFreeEmployee(this, i, i);
 		}
+		}
+		
 		
 		
 	}
@@ -75,16 +82,12 @@ public class Employee {
 		}
 		
 	}
-	
-	//skod1
-	
-	//skod 2
-	
-	// skod 3
-	
+
 	public double getWorkHours(){
 		return hoursChanged;
 	}
+	
+	
 
 
 }

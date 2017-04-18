@@ -76,4 +76,24 @@ public class SoftwarehusetTest {
 		
 	}
 	
+	@Test
+	public void addEmployeeToActivityTest() throws Exception{
+		sh.addEmployee("skod");
+		sh.addEmployee("anne");
+		sh.getEmployeeByID("skod");
+		sh.addProject("test",50,sh);
+		
+		
+		
+	}
+	
+//	@Test
+//	public void getFreeEmployeesTest() throws Exception{
+//		sh.addEmployee("skod");
+//		sh.addEmployee("anne");
+//		
+//		
+//		
+//	}
+	
 }

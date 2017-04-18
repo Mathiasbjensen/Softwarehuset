@@ -27,17 +27,17 @@ public class Project {
 		return projectName;
 	}
 	
+	// Assigns an employee to a project leader
 	public void assignProjectLeader(Employee employee, int week) throws OperationNotAllowedException {
 		try {
-			if(sh.getFreeEmployees(week).contains(employee)) {
+			if(sh.getEmployees().contains(employee)) {
 				
 			ProjectLeader projectLeader = new ProjectLeader(employee, this);
-			sh.getFreeEmployees(week).remove(employee);
 			projectLeaders.add(projectLeader);
 			
 			}
 			else {
-				throw new OperationNotAllowedException("The employee is not available", "Assign project leader");
+				throw new OperationNotAllowedException("That employee does not exist", "Assign project leader");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
