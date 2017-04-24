@@ -16,12 +16,14 @@ import javax.swing.JTextField;
 public class Ui extends JFrame implements ActionListener {
 	
 
-	private static JButton projectButton, addProject, addEmployee, employeeList, okButton, searchProjects; 
+	private static JButton projectButton, addProject, addEmployee, employeeList, 
+					okButton, searchProjects, mainMenu; 
 	private static JTextField whatProject, expectedTimeTxt;
 	private static Softwarehuset sh = new Softwarehuset();
 	private static Project project;
 	private JLabel projectNameLab, expectedTimeLab;
-	private Dimension fieldsize, panelsize, txtsize;
+	private Dimension fieldsize, panelsize, txtsize, jPanelsize;
+	private JPanel mainMenuPanel;
 
 	
 
@@ -31,6 +33,7 @@ public class Ui extends JFrame implements ActionListener {
 		txtsize = new Dimension(300,30);
 		fieldsize = new Dimension(200,20);
 		panelsize = new Dimension(100,15);
+		jPanelsize = new Dimension(700,700);
 		
 		
 		getContentPane().setLayout(new BorderLayout());
@@ -46,6 +49,8 @@ public class Ui extends JFrame implements ActionListener {
 //		buttonpanel.setBackground(new Color(255, 0, 0));
 		buttonpanel.add(projectButton);
 		
+		
+		mainMenu = makingJButton("Back");
 		
 		// Creating a button to add projects
 		addProject = makingJButton("Add Project");
@@ -79,6 +84,10 @@ public class Ui extends JFrame implements ActionListener {
 		expectedTimeLab.setMaximumSize(panelsize);
 		expectedTimeLab.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		
+		// Main Menu Panel
+		
+		
+		
 		
 	}
 	
@@ -104,7 +113,7 @@ public class Ui extends JFrame implements ActionListener {
 
 			buttonpanelProjects.setLayout(new BoxLayout(buttonpanelProjects, BoxLayout.Y_AXIS));
 			buttonpanelProjects.add(searchProjects);
-			
+			buttonpanelProjects.add(mainMenu);
 			
 			getContentPane().setLayout(new BorderLayout());
 			getContentPane().add(textpanel, BorderLayout.CENTER);
@@ -120,8 +129,14 @@ public class Ui extends JFrame implements ActionListener {
 			getContentPane().removeAll();
 			getContentPane().setVisible(true);
 			
+			mainMenuPanel = makingJPanel(jPanelsize);
+			mainMenuPanel.add(mainMenu);
+			
+			getContentPane().setLayout(new BorderLayout());
+			getContentPane().add(mainMenu);
+			
 		}
-		
+		// Add employee in Menu
 		if (arg0.getSource() == addEmployee) {
 			getContentPane().setVisible(false);
 			getContentPane().removeAll();
@@ -181,10 +196,16 @@ public class Ui extends JFrame implements ActionListener {
 //			getContentPane().removeAll();
 //			getContentPane().setVisible(true);
 			
-			repaint();
+		
 		}
-		
-		
+		// Main menu button function
+		if (arg0.getSource() == mainMenu) {
+			getContentPane().setVisible(false);
+			getContentPane().removeAll();
+			getContentPane().setVisible(true);
+			
+			menuReset();
+		}
 		
 		
 		
@@ -209,6 +230,59 @@ public class Ui extends JFrame implements ActionListener {
 		e.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		return e;
+	}
+	
+	public JPanel makingJPanel(Dimension dimension) {
+		JPanel e = new JPanel();
+		e.setMinimumSize(dimension);
+		e.setMaximumSize(dimension);
+		e.setLayout(new BoxLayout(e, BoxLayout.Y_AXIS));
+		
+		return e;
+	}
+	
+	public void menuReset() {
+getContentPane().setLayout(new BorderLayout());
+		
+		// Creating a project button
+		projectButton = makingJButton("List of projects");
+		
+		JPanel buttonpanel = new JPanel();
+		buttonpanel.setMinimumSize(new Dimension(700,700));
+		buttonpanel.setMaximumSize(new Dimension(700,700));
+
+		buttonpanel.setLayout(new BoxLayout(buttonpanel, BoxLayout.Y_AXIS));
+//		buttonpanel.setBackground(new Color(255, 0, 0));
+		buttonpanel.add(projectButton);
+		
+		
+		mainMenu = makingJButton("Back");
+		
+		// Creating a button to add projects
+		addProject = makingJButton("Add Project");
+		buttonpanel.add(addProject);
+		
+		//Button to add employee
+		
+		addEmployee = makingJButton("Add Employee");
+		buttonpanel.add(addEmployee);
+		
+		employeeList = makingJButton("List of employees");
+		buttonpanel.add(employeeList);
+		
+		okButton = makingJButton("OK");
+		
+		searchProjects = makingJButton("Search");
+		
+		getContentPane().add(buttonpanel, BorderLayout.CENTER);
+		
+		
+		// Main Menu Panel
+		
+		
+		
+		
+	
 	}
 	
 	public static void main(String[] args) {
