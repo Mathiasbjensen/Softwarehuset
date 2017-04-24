@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 public class Ui extends JFrame implements ActionListener {
 	
-	private static JButton project, addProject,; 
+	private static JButton project, addProject, addEmployee, employeeList; 
 
 	public Ui() {
 		getContentPane().setLayout(new BorderLayout());
@@ -41,8 +41,21 @@ public class Ui extends JFrame implements ActionListener {
 		addProject.setAlignmentY(Component.CENTER_ALIGNMENT);
 		buttonpanel.add(addProject);
 		
+		//Button to add employee
 		
+		addEmployee = new JButton("Add Employee");
+		addEmployee.addActionListener(this);
+		addEmployee.setMaximumSize(new Dimension(200,200));
+		addEmployee.setAlignmentX(Component.CENTER_ALIGNMENT);
+		addEmployee.setAlignmentY(Component.CENTER_ALIGNMENT);
+		buttonpanel.add(addEmployee);
 		
+		employeeList = new JButton("List of employees");
+		employeeList.addActionListener(this);
+		employeeList.setMaximumSize(new Dimension(200,200));
+		employeeList.setAlignmentX(Component.CENTER_ALIGNMENT);
+		employeeList.setAlignmentY(Component.CENTER_ALIGNMENT);
+		buttonpanel.add(employeeList);
 		
 		
 		
