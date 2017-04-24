@@ -15,18 +15,23 @@ import javax.swing.JTextField;
 public class Ui extends JFrame implements ActionListener {
 	
 
-	private static JButton project, addProject, addEmployee, employeeList; 
+	private static JButton projectButton, addProject, addEmployee, employeeList, okButton, searchProjects; 
 	private static JTextField whatProject;
+	private static Softwarehuset sh = new Softwarehuset();
+	private static Project project;
+	
 
 	public Ui() {
+		
+		
 		getContentPane().setLayout(new BorderLayout());
 		
 		// Creating a project button
-		project = new JButton("Projects");
-		project.addActionListener(this);
-		project.setMaximumSize(new Dimension(200,200));
-		project.setAlignmentX(Component.CENTER_ALIGNMENT);
-		project.setAlignmentY(Component.CENTER_ALIGNMENT);
+		projectButton = new JButton("List of projects");
+		projectButton.addActionListener(this);
+		projectButton.setMaximumSize(new Dimension(200,200));
+		projectButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		projectButton.setAlignmentY(Component.CENTER_ALIGNMENT);
 		
 		JPanel buttonpanel = new JPanel();
 		buttonpanel.setMinimumSize(new Dimension(700,700));
@@ -34,7 +39,7 @@ public class Ui extends JFrame implements ActionListener {
 
 		buttonpanel.setLayout(new BoxLayout(buttonpanel, BoxLayout.Y_AXIS));
 //		buttonpanel.setBackground(new Color(255, 0, 0));
-		buttonpanel.add(project);
+		buttonpanel.add(projectButton);
 		
 		
 		// Creating a button to add projects
@@ -61,7 +66,17 @@ public class Ui extends JFrame implements ActionListener {
 		employeeList.setAlignmentY(Component.CENTER_ALIGNMENT);
 		buttonpanel.add(employeeList);
 		
+		okButton = new JButton("Add");
+		okButton.addActionListener(this);
+		okButton.setMaximumSize(new Dimension(200,200));
+		okButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		okButton.setAlignmentY(Component.CENTER_ALIGNMENT);
 		
+		searchProjects = new JButton("Search");
+		searchProjects.addActionListener(this);
+		searchProjects.setMaximumSize(new Dimension(200,200));
+		searchProjects.setAlignmentX(Component.CENTER_ALIGNMENT);
+		searchProjects.setAlignmentY(Component.CENTER_ALIGNMENT);
 		
 		getContentPane().add(buttonpanel, BorderLayout.CENTER);
 		
@@ -73,14 +88,15 @@ public class Ui extends JFrame implements ActionListener {
 		whatProject.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		
 		
-		//opretter panel til textfields
-	
+		
 	}
 	
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if (arg0.getSource() == project) {
+		
+		// Menu Project
+		if (arg0.getSource() == projectButton) {
 			getContentPane().setVisible(false);
 			getContentPane().removeAll();
 			getContentPane().setVisible(true);
@@ -90,12 +106,67 @@ public class Ui extends JFrame implements ActionListener {
 			textpanel.add(Box.createRigidArea(new Dimension(110,5)));
 			textpanel.add(whatProject,BorderLayout.CENTER);
 			
+			JPanel buttonpanelProjects = new JPanel();
+			buttonpanelProjects.setMinimumSize(new Dimension(700,700));
+			buttonpanelProjects.setMaximumSize(new Dimension(700,700));
+
+			buttonpanelProjects.setLayout(new BoxLayout(buttonpanelProjects, BoxLayout.Y_AXIS));
+			buttonpanelProjects.add(searchProjects);
+			
 			
 			getContentPane().setLayout(new BorderLayout());
-			getContentPane().add(textpanel);
+			getContentPane().add(textpanel, BorderLayout.CENTER);
+			getContentPane().add(buttonpanelProjects, BorderLayout.EAST);
+		
 			
 			
 		}
+		// Remember to add exception
+		if (arg0.getSource() == searchProjects) {
+			this.project = sh.getProjectByName(whatProject.getText());
+			getContentPane().setVisible(false);
+			getContentPane().removeAll();
+			getContentPane().setVisible(true);
+			
+		}
+		
+		// Adding project
+		if (arg0.getSource() == addProject) {
+			getContentPane().setVisible(false);
+			getContentPane().removeAll();
+			getContentPane().setVisible(true);
+			
+			JPanel textpanel = new JPanel();
+			textpanel.setLayout(new BoxLayout(textpanel, BoxLayout.Y_AXIS));
+			textpanel.add(Box.createRigidArea(new Dimension(110,5)));
+			textpanel.add(whatProject,BorderLayout.CENTER);
+			
+			JPanel buttonpanelProjects = new JPanel();
+			buttonpanelProjects.setMinimumSize(new Dimension(700,700));
+			buttonpanelProjects.setMaximumSize(new Dimension(700,700));
+
+			buttonpanelProjects.setLayout(new BoxLayout(buttonpanelProjects, BoxLayout.Y_AXIS));
+			buttonpanelProjects.add(okButton);
+			
+			
+			getContentPane().setLayout(new BorderLayout());
+			getContentPane().add(textpanel, BorderLayout.CENTER);
+			getContentPane().add(buttonpanelProjects, BorderLayout.EAST);
+		
+			
+			
+		}
+		// Remember to add exception
+		if (arg0.getSource() == okButton) {
+//			sh.addProject(projectName, expectedTime, softwarehuset);
+			getContentPane().setVisible(false);
+			getContentPane().removeAll();
+			getContentPane().setVisible(true);
+		}
+		
+		
+		
+		
 	}
 	
 	public static void main(String[] args) {
