@@ -66,21 +66,16 @@ public class Ui extends JFrame implements ActionListener {
 		
 		whatProject = makingJTextField(fieldsize);
 		
-		expectedTimeTxt = new JTextField(20);
-		expectedTimeTxt.setMaximumSize(fieldsize);
-		expectedTimeTxt.setMaximumSize(new Dimension(1200,100));
-		expectedTimeTxt.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		expectedTimeTxt = makingJTextField(fieldsize);
 		
 		// Creating Labels
 		
 		projectNameLab = new JLabel("Project Name");
 		projectNameLab.setMaximumSize(fieldsize);
-		projectNameLab.setMaximumSize(new Dimension(1200,100));
 		projectNameLab.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		
 		expectedTimeLab = new JLabel("Expected time");
 		expectedTimeLab.setMaximumSize(fieldsize);
-		expectedTimeLab.setMaximumSize(new Dimension(1200,100));
 		expectedTimeLab.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		
 		
@@ -146,7 +141,9 @@ public class Ui extends JFrame implements ActionListener {
 			textpanel.setLayout(new BoxLayout(textpanel, BoxLayout.Y_AXIS));
 			textpanel.add(Box.createRigidArea(new Dimension(110,5)));
 			textpanel.add(whatProject,BorderLayout.CENTER);
+			textpanel.add(Box.createRigidArea(new Dimension(110,5)));
 			textpanel.add(expectedTimeTxt,BorderLayout.CENTER);
+			textpanel.add(Box.createRigidArea(new Dimension(110,5)));
 			
 			JPanel buttonpanelProjects = new JPanel();
 			buttonpanelProjects.setMinimumSize(new Dimension(700,700));
