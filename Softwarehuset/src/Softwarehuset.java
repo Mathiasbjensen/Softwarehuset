@@ -91,13 +91,14 @@ public class Softwarehuset {
 
 		}
 	
-	public Project getProjectByName(String Name) {
+	public Project getProjectByName(String Name) throws Exception {
 		for (int i = 0; i < projects.size();i++) {
 	        if(projects.get(i).getProjectName().equals(Name)) {
 	            return projects.get(i);
 	        }  
 		}
-		return null;
+		throw new OperationNotAllowedException("No project by this name", "Get project by name");
+		
 
 
 		}

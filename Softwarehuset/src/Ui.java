@@ -17,7 +17,8 @@ public class Ui extends JFrame implements ActionListener {
 	
 
 	private static JButton projectButton, addProject, addEmployee, employeeList, 
-					okButton, searchProjects, mainMenu, addEmployeeButton; 
+					okButton, searchProjects, mainMenu, addEmployeeButton, assignProjectLeader,
+					addActivity, findActivity, iAmProjectLeader; 
 	private static JTextField whatProject, expectedTimeTxt, nameOfEmployee;
 	private static Softwarehuset sh = new Softwarehuset();
 	private static Project project;
@@ -89,6 +90,11 @@ public class Ui extends JFrame implements ActionListener {
 		// Main Menu Panel
 		
 		
+		// buttons til project klassen
+		assignProjectLeader = makingJButton("Assign a projectleader");
+		addActivity = makingJButton("Add an activity to project");
+		findActivity = makingJButton("Find an activity");
+		iAmProjectLeader = makingJButton("I am a ProjectLeader");
 		
 		
 	}
@@ -120,23 +126,31 @@ public class Ui extends JFrame implements ActionListener {
 			getContentPane().setLayout(new BorderLayout());
 			getContentPane().add(textpanel, BorderLayout.CENTER);
 			getContentPane().add(buttonpanelProjects, BorderLayout.EAST);
-		
-			
-			
 		}
 		// Remember to add exception
 		if (arg0.getSource() == searchProjects) {
-			this.project = sh.getProjectByName(whatProject.getText());
-			getContentPane().setVisible(false);
-			getContentPane().removeAll();
-			getContentPane().setVisible(true);
-			
-			mainMenuPanel = makingJPanel(jPanelsize);
-			mainMenuPanel.add(mainMenu);
-			
-			getContentPane().setLayout(new BorderLayout());
-			getContentPane().add(mainMenuPanel);
-			
+			try {
+				this.project = sh.getProjectByName(whatProject.getText());
+				getContentPane().setVisible(false);
+				getContentPane().removeAll();
+				getContentPane().setVisible(true);
+				
+				mainMenuPanel = makingJPanel(jPanelsize);
+				mainMenuPanel.add(assignProjectLeader);
+				mainMenuPanel.add(iAmProjectLeader);
+				mainMenuPanel.add(addActivity);
+				mainMenuPanel.add(findActivity);
+				mainMenuPanel.add(mainMenu);
+				
+				
+				getContentPane().setLayout(new BorderLayout());
+				getContentPane().add(mainMenuPanel);
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				whatProject.setText(e.getMessage());
+			}
+		
 		}
 		// Add employee in Menu
 		if (arg0.getSource() == addEmployee) {
@@ -222,10 +236,7 @@ public class Ui extends JFrame implements ActionListener {
 				// TODO Auto-generated catch block
 				whatProject.setText(e.getMessage());
 			}
-
 			
-
-		
 		}
 		// Main menu button function
 		if (arg0.getSource() == mainMenu) {
@@ -236,13 +247,21 @@ public class Ui extends JFrame implements ActionListener {
 			menuReset();
 		}
 		
-		
-		
-
+		if (arg0.getSource() == assignProjectLeader) {
+			
+		}
+		if (arg0.getSource() == iAmProjectLeader) {
+			
+		}
+		if (arg0.getSource() == addActivity) {
+			
+		}	
+		if (arg0.getSource() == findActivity) {
+			
 		}
 		
-
-	
+		}
+		
 	
 	public JButton makingJButton(String buttonName) {
 		
