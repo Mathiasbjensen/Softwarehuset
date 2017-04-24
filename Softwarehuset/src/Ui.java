@@ -173,7 +173,7 @@ public class Ui extends JFrame implements ActionListener {
 		}
 		// Remember to add exception
 		if (arg0.getSource() == okButton) {
-			sh.addProject(projectName, expectedTime, softwarehuset);
+//			sh.addProject(projectName, expectedTime, softwarehuset);
 			getContentPane().setVisible(false);
 			getContentPane().removeAll();
 			getContentPane().setVisible(true);
