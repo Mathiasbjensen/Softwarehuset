@@ -21,13 +21,16 @@ public class Ui extends JFrame implements ActionListener {
 	private static Softwarehuset sh = new Softwarehuset();
 	private static Project project;
 	private JLabel projectNameLab, expectedTimeLab;
-	private Dimension fieldsize = new Dimension(200,20);
+	private Dimension fieldsize, panelsize, txtsize;
+
 	
 
 	public Ui() {
 		
 		Dimension btnsize = new Dimension(100,30);
-		Dimension txtsize = new Dimension(300,30);
+		txtsize = new Dimension(300,30);
+		fieldsize = new Dimension(200,20);
+		panelsize = new Dimension(100,15);
 		
 		
 		getContentPane().setLayout(new BorderLayout());
@@ -62,25 +65,18 @@ public class Ui extends JFrame implements ActionListener {
 		
 		getContentPane().add(buttonpanel, BorderLayout.CENTER);
 		
-		
-		
 		whatProject = makingJTextField(fieldsize);
 		
-		expectedTimeTxt = new JTextField(20);
-		expectedTimeTxt.setMaximumSize(fieldsize);
-		expectedTimeTxt.setMaximumSize(new Dimension(1200,100));
-		expectedTimeTxt.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		expectedTimeTxt = makingJTextField(fieldsize);
 		
 		// Creating Labels
 		
 		projectNameLab = new JLabel("Project Name");
-		projectNameLab.setMaximumSize(fieldsize);
-		projectNameLab.setMaximumSize(new Dimension(1200,100));
+		projectNameLab.setMaximumSize(panelsize);
 		projectNameLab.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		
 		expectedTimeLab = new JLabel("Expected time");
-		expectedTimeLab.setMaximumSize(fieldsize);
-		expectedTimeLab.setMaximumSize(new Dimension(1200,100));
+		expectedTimeLab.setMaximumSize(panelsize);
 		expectedTimeLab.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		
 		
@@ -144,7 +140,7 @@ public class Ui extends JFrame implements ActionListener {
 			
 			JPanel textpanel = new JPanel();
 			textpanel.setLayout(new BoxLayout(textpanel, BoxLayout.Y_AXIS));
-			textpanel.add(Box.createRigidArea(new Dimension(110,5)));
+//			textpanel.add(Box.createRigidArea(new Dimension(110,5)));
 			textpanel.add(whatProject,BorderLayout.CENTER);
 			textpanel.add(expectedTimeTxt,BorderLayout.CENTER);
 			
@@ -157,9 +153,9 @@ public class Ui extends JFrame implements ActionListener {
 			
 			JPanel lab1 = new JPanel();
 			lab1.setLayout(new BoxLayout(lab1, BoxLayout.PAGE_AXIS));
-			lab1.add(Box.createRigidArea(fieldsize));
+//			lab1.add(Box.createRigidArea(fieldsize));
 			lab1.add(projectNameLab);
-			lab1.add(Box.createRigidArea(fieldsize));
+//			lab1.add(Box.createRigidArea(fieldsize));
 			lab1.add(expectedTimeLab);
 			
 			
@@ -200,7 +196,7 @@ public class Ui extends JFrame implements ActionListener {
 		
 		JTextField e = new JTextField(20);
 		e.setMaximumSize(dimension);
-		e.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		e.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		return e;
 	}
@@ -213,7 +209,7 @@ public class Ui extends JFrame implements ActionListener {
 		test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		test.pack();
 		test.setVisible(true);
-		test.setSize(700,700);
+		test.setSize(700,400);
 		test.setResizable(false);
 	
 	}
