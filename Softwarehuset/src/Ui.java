@@ -58,10 +58,7 @@ public class Ui extends JFrame implements ActionListener {
 		
 		Dimension fieldsize = new Dimension(200,20);
 		
-		whatProject = new JTextField(20);
-		whatProject.setMaximumSize(fieldsize);
-		whatProject.setMaximumSize(new Dimension(1200,100));
-		whatProject.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		whatProject = makingJTextField(fieldsize);
 		
 		
 		
@@ -103,6 +100,16 @@ public class Ui extends JFrame implements ActionListener {
 			getContentPane().setVisible(false);
 			getContentPane().removeAll();
 			getContentPane().setVisible(true);
+			
+		}
+		
+		if (arg0.getSource() == addEmployee) {
+			getContentPane().setVisible(false);
+			getContentPane().removeAll();
+			getContentPane().setVisible(true);
+			
+			
+			
 			
 		}
 		
@@ -155,6 +162,15 @@ public class Ui extends JFrame implements ActionListener {
 		
 		return e;
 		
+	}
+	
+	public JTextField makingJTextField(Dimension dimension) {
+		
+		JTextField e = new JTextField(20);
+		e.setMaximumSize(dimension);
+		e.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		
+		return e;
 	}
 	
 	public static void main(String[] args) {
