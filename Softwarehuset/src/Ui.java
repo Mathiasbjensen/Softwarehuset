@@ -9,6 +9,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -16,12 +17,17 @@ public class Ui extends JFrame implements ActionListener {
 	
 
 	private static JButton projectButton, addProject, addEmployee, employeeList, okButton, searchProjects; 
-	private static JTextField whatProject;
+	private static JTextField whatProject, expectedTimeTxt;
 	private static Softwarehuset sh = new Softwarehuset();
 	private static Project project;
+	private JLabel projectNameLab, expectedTimeLab;
+	private Dimension fieldsize = new Dimension(200,20);
 	
 
 	public Ui() {
+		
+		Dimension btnsize = new Dimension(100,30);
+		Dimension txtsize = new Dimension(300,30);
 		
 		
 		getContentPane().setLayout(new BorderLayout());
@@ -80,13 +86,29 @@ public class Ui extends JFrame implements ActionListener {
 		
 		getContentPane().add(buttonpanel, BorderLayout.CENTER);
 		
-		Dimension fieldsize = new Dimension(200,20);
+		
 		
 		whatProject = new JTextField(20);
 		whatProject.setMaximumSize(fieldsize);
 		whatProject.setMaximumSize(new Dimension(1200,100));
 		whatProject.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		
+		expectedTimeTxt = new JTextField(20);
+		expectedTimeTxt.setMaximumSize(fieldsize);
+		expectedTimeTxt.setMaximumSize(new Dimension(1200,100));
+		expectedTimeTxt.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		
+		// Creating Labels
+		
+		projectNameLab = new JLabel("Project Name");
+		projectNameLab.setMaximumSize(fieldsize);
+		projectNameLab.setMaximumSize(new Dimension(1200,100));
+		projectNameLab.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		
+		expectedTimeLab = new JLabel("Expected time");
+		expectedTimeLab.setMaximumSize(fieldsize);
+		expectedTimeLab.setMaximumSize(new Dimension(1200,100));
+		expectedTimeLab.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		
 		
 	}
@@ -105,6 +127,7 @@ public class Ui extends JFrame implements ActionListener {
 			textpanel.setLayout(new BoxLayout(textpanel, BoxLayout.Y_AXIS));
 			textpanel.add(Box.createRigidArea(new Dimension(110,5)));
 			textpanel.add(whatProject,BorderLayout.CENTER);
+			
 			
 			JPanel buttonpanelProjects = new JPanel();
 			buttonpanelProjects.setMinimumSize(new Dimension(700,700));
@@ -140,6 +163,7 @@ public class Ui extends JFrame implements ActionListener {
 			textpanel.setLayout(new BoxLayout(textpanel, BoxLayout.Y_AXIS));
 			textpanel.add(Box.createRigidArea(new Dimension(110,5)));
 			textpanel.add(whatProject,BorderLayout.CENTER);
+			textpanel.add(expectedTimeTxt,BorderLayout.CENTER);
 			
 			JPanel buttonpanelProjects = new JPanel();
 			buttonpanelProjects.setMinimumSize(new Dimension(700,700));
@@ -148,17 +172,25 @@ public class Ui extends JFrame implements ActionListener {
 			buttonpanelProjects.setLayout(new BoxLayout(buttonpanelProjects, BoxLayout.Y_AXIS));
 			buttonpanelProjects.add(okButton);
 			
+			JPanel lab1 = new JPanel();
+			lab1.setLayout(new BoxLayout(lab1, BoxLayout.PAGE_AXIS));
+			lab1.add(Box.createRigidArea(fieldsize));
+			lab1.add(projectNameLab);
+			lab1.add(Box.createRigidArea(fieldsize));
+			lab1.add(expectedTimeLab);
+			
 			
 			getContentPane().setLayout(new BorderLayout());
 			getContentPane().add(textpanel, BorderLayout.CENTER);
 			getContentPane().add(buttonpanelProjects, BorderLayout.EAST);
+			getContentPane().add(lab1, BorderLayout.WEST);
 		
 			
 			
 		}
 		// Remember to add exception
 		if (arg0.getSource() == okButton) {
-//			sh.addProject(projectName, expectedTime, softwarehuset);
+			sh.addProject(projectName, expectedTime, softwarehuset);
 			getContentPane().setVisible(false);
 			getContentPane().removeAll();
 			getContentPane().setVisible(true);
