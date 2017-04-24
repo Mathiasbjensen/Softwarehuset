@@ -18,13 +18,15 @@ public class Ui extends JFrame implements ActionListener {
 
 	private static JButton projectButton, addProject, addEmployee, employeeList, 
 					okButton, searchProjects, mainMenu, addEmployeeButton, assignProjectLeader,
-					addActivity, findActivity, iAmProjectLeader; 
-	private static JTextField whatProject, expectedTimeTxt, nameOfEmployee;
+					addActivity, findActivity, iAmProjectLeader, projectLeaderButtonFinal,
+					searchActivity; 
+	private static JTextField whatProject, expectedTimeTxt, nameOfEmployee, whatActivity;
 	private static Softwarehuset sh = new Softwarehuset();
 	private static Project project;
-	private JLabel projectNameLab, expectedTimeLab, employeeName;;
+	private JLabel projectNameLab, expectedTimeLab, employeeName, activityName;
 	private Dimension fieldsize, panelsize, txtsize, jPanelsize;
 	private JPanel mainMenuPanel;
+	private static Activity activity;
 
 
 	
@@ -95,7 +97,10 @@ public class Ui extends JFrame implements ActionListener {
 		addActivity = makingJButton("Add an activity to project");
 		findActivity = makingJButton("Find an activity");
 		iAmProjectLeader = makingJButton("I am a ProjectLeader");
-		
+		projectLeaderButtonFinal = makingJButton("Assign");
+		whatActivity = makingJTextField(fieldsize);
+		searchActivity = makingJButton("Search");
+		activityName = makingJLabel("Name of activity: ", panelsize);
 		
 	}
 	
@@ -109,16 +114,9 @@ public class Ui extends JFrame implements ActionListener {
 			getContentPane().removeAll();
 			getContentPane().setVisible(true);
 			
-			JPanel textpanel = new JPanel();
-			textpanel.setLayout(new BoxLayout(textpanel, BoxLayout.Y_AXIS));
-			textpanel.add(Box.createRigidArea(new Dimension(110,5)));
+			JPanel textpanel = makingJPanel(jPanelsize);
 			textpanel.add(whatProject,BorderLayout.CENTER);
-			
-			
-			JPanel buttonpanelProjects = new JPanel();
-			buttonpanelProjects.setMinimumSize(new Dimension(700,700));
-			buttonpanelProjects.setMaximumSize(new Dimension(700,700));
-
+			JPanel buttonpanelProjects = makingJPanel(jPanelsize);
 			buttonpanelProjects.setLayout(new BoxLayout(buttonpanelProjects, BoxLayout.Y_AXIS));
 			buttonpanelProjects.add(searchProjects);
 			buttonpanelProjects.add(mainMenu);
@@ -138,7 +136,6 @@ public class Ui extends JFrame implements ActionListener {
 				mainMenuPanel = makingJPanel(jPanelsize);
 				mainMenuPanel.add(assignProjectLeader);
 				mainMenuPanel.add(iAmProjectLeader);
-				mainMenuPanel.add(addActivity);
 				mainMenuPanel.add(findActivity);
 				mainMenuPanel.add(mainMenu);
 				
@@ -158,23 +155,14 @@ public class Ui extends JFrame implements ActionListener {
 			getContentPane().removeAll();
 			getContentPane().setVisible(true);
 			
-			
-			JPanel textpanel = new JPanel();
-			textpanel.setLayout(new BoxLayout(textpanel, BoxLayout.Y_AXIS));
-			textpanel.add(Box.createRigidArea(new Dimension(110,5)));
-			textpanel.add(nameOfEmployee,BorderLayout.CENTER);
-			JPanel lab1 = new JPanel();
-			lab1.setLayout(new BoxLayout(lab1, BoxLayout.PAGE_AXIS));
+			JPanel textpanel = makingJPanel(jPanelsize);
+			textpanel.add(nameOfEmployee,BorderLayout.WEST);
+			JPanel lab1 = makingJPanel(jPanelsize);
 			lab1.add(employeeName);
-			JPanel buttonpanelProjects = new JPanel();
-			buttonpanelProjects.setMinimumSize(new Dimension(700,700));
-			buttonpanelProjects.setMaximumSize(new Dimension(700,700));
-
-			buttonpanelProjects.setLayout(new BoxLayout(buttonpanelProjects, BoxLayout.Y_AXIS));
+			JPanel buttonpanelProjects = makingJPanel(jPanelsize);
 			buttonpanelProjects.add(addEmployeeButton);
 			buttonpanelProjects.add(mainMenu);
-			
-
+		
 			getContentPane().setLayout(new BorderLayout());
 			getContentPane().add(textpanel, BorderLayout.CENTER);
 			getContentPane().add(buttonpanelProjects, BorderLayout.EAST);
@@ -232,6 +220,7 @@ public class Ui extends JFrame implements ActionListener {
 			int expectedTime2 = Integer.parseInt(expectedTimeTxt.getText());
 			try {
 				sh.addProject(whatProject.getText(), expectedTime2, sh);
+				whatProject.setText("Project has been added");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				whatProject.setText(e.getMessage());
@@ -249,7 +238,35 @@ public class Ui extends JFrame implements ActionListener {
 		
 		if (arg0.getSource() == assignProjectLeader) {
 			
+				getContentPane().setVisible(false);
+				getContentPane().removeAll();
+				getContentPane().setVisible(true);
+				
+				JPanel textpanel = makingJPanel(jPanelsize);
+				textpanel.add(nameOfEmployee,BorderLayout.WEST);
+				JPanel lab1 = makingJPanel(jPanelsize);
+				lab1.add(employeeName);
+				JPanel buttonpanelProjects = makingJPanel(jPanelsize);
+				buttonpanelProjects.add(projectLeaderButtonFinal);
+				buttonpanelProjects.add(mainMenu);
+			
+				getContentPane().setLayout(new BorderLayout());
+				getContentPane().add(textpanel, BorderLayout.CENTER);
+				getContentPane().add(buttonpanelProjects, BorderLayout.EAST);
+				getContentPane().add(lab1, BorderLayout.WEST);
+			
 		}
+		
+		if (arg0.getSource()== projectLeaderButtonFinal) {
+			try {
+				project.assignProjectLeader(nameOfEmployee.getText());
+				nameOfEmployee.setText("Projectleader has been assigned");
+			} catch (OperationNotAllowedException e) {
+				// TODO Auto-generated catch block
+				nameOfEmployee.setText(e.getMessage());
+			}
+		}
+		
 		if (arg0.getSource() == iAmProjectLeader) {
 			
 		}
@@ -257,6 +274,23 @@ public class Ui extends JFrame implements ActionListener {
 			
 		}	
 		if (arg0.getSource() == findActivity) {
+			getContentPane().setVisible(false);
+			getContentPane().removeAll();
+			getContentPane().setVisible(true);
+			
+			JPanel textpanel = makingJPanel(jPanelsize);
+			textpanel.add(whatActivity,BorderLayout.CENTER);
+			JPanel buttonpanelProjects = makingJPanel(jPanelsize);
+			JPanel lab1 = makingJPanel(jPanelsize);
+			lab1.add(activityName);
+			buttonpanelProjects.setLayout(new BoxLayout(buttonpanelProjects, BoxLayout.Y_AXIS));
+			buttonpanelProjects.add(searchActivity);
+			buttonpanelProjects.add(mainMenu);
+			
+			getContentPane().setLayout(new BorderLayout());
+			getContentPane().add(textpanel, BorderLayout.CENTER);
+			getContentPane().add(lab1, BorderLayout.WEST);
+			getContentPane().add(buttonpanelProjects, BorderLayout.EAST);
 			
 		}
 		
@@ -279,7 +313,7 @@ public class Ui extends JFrame implements ActionListener {
 		
 		JTextField e = new JTextField(20);
 		e.setMaximumSize(dimension);
-		e.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		e.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		return e;
 	}
