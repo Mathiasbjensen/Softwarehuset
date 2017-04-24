@@ -41,16 +41,40 @@ public class Softwarehuset {
 
 	}
 	//Revurder eventuelt saa man kan have start og slut som parameter
-	public ArrayList getFreeEmployees(int week)throws Exception {
-		
-		ArrayList<Employee> free = new ArrayList<Employee>();		
-		if(freeEmployees[week].size() == 0 ) {
+	// 
+	public ArrayList getFreeEmployees(int weekStart, int weekEnd)throws Exception {
+		boolean isFree = false;
+		ArrayList<Employee> free = new ArrayList<Employee>();	
+		for (int i = weekStart-1; i <= weekEnd-1; i++) {
+		if(freeEmployees[i].size() == 0 ) {
 			throw new OperationNotAllowedException("No free employees this week", "get free employees");
 		}
 		
-		return freeEmployees[week];
 	}
+		for (int j = 0; j < freeEmployees[weekStart].size(); j++) {
+			Employee hans = (Employee) freeEmployees[weekStart].get(j);
+			for (int i = weekStart+1; i <=weekEnd; i++) {
+				if (freeEmployees[i].contains(hans)) {
+					isFree = true;
+				} else {
+					isFree = false;
+				}
+			}
+			if (isFree) {
+				free.add(hans);
+			}
+		}
+		return free;
+	}	
+		
+	
+		public void removeFreeEmployee(Employee employee, int weekStart, int weekEnd) {
+			for (int i = weekStart; i <= weekEnd; i++) {
+				freeEmployees[i].remove(employee);
+			}
+		}
 
+		//public ArrayList getFreeEmployee
 	
 	public void addProject(String projectName, int expectedTime, Softwarehuset softwarehuset) throws Exception {
 
@@ -64,6 +88,17 @@ public class Softwarehuset {
 
 			Project newProject = new Project(projectName, expectedTime, softwarehuset);
 			projects.add(newProject);
+
+		}
+	
+	public Project getProjectByName(String Name) {
+		for (int i = 0; i < projects.size();i++) {
+	        if(projects.get(i).getProjectName().equals(Name)) {
+	            return projects.get(i);
+	        }  
+		}
+		return null;
+
 
 		}
 
@@ -100,8 +135,6 @@ public class Softwarehuset {
         }  
 	}
 	return null;
-
-
 	}
 
 

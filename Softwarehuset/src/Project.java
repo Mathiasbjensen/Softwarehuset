@@ -8,7 +8,7 @@ public class Project {
 	private String projectName;
 	private int expectedTime;
 	private Softwarehuset sh;
-	private List<Activity> Activities = new ArrayList<Activity>();
+	private List<Activity> activities = new ArrayList<Activity>();
 	// Stupid to have an array for ONE projectleader??
 	private List<ProjectLeader> projectLeaders = new ArrayList<ProjectLeader>();
 	
@@ -27,17 +27,18 @@ public class Project {
 		return projectName;
 	}
 	
-	public void assignProjectLeader(Employee employee, int week) throws OperationNotAllowedException {
+	// Assigns an employee to a project leader
+	public void assignProjectLeader(String employeeID) throws OperationNotAllowedException {
+		Employee employee = sh.getEmployeeByID(employeeID);
 		try {
-			if(sh.getFreeEmployees(week).contains(employee)) {
+			if(sh.getEmployees().contains(employee)) {
 				
 			ProjectLeader projectLeader = new ProjectLeader(employee, this);
-			sh.getFreeEmployees(week).remove(employee);
 			projectLeaders.add(projectLeader);
 			
 			}
 			else {
-				throw new OperationNotAllowedException("The employee is not available", "Assign project leader");
+				throw new OperationNotAllowedException("That employee does not exist", "Assign project leader");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,11 +49,24 @@ public class Project {
 		return projectLeaders;
 	}
 	
+
+	
 	// CONSIDER GIVING ACTIVITY A NAME???????
-	public void addActivity(int budgetTime, int start, int end) {
-		Activity activity = new Activity(budgetTime, start, end);
-		Activities.add(activity);
+	public void addActivity(int budgetTime, int start, int end, String activityName) {
+		Activity activity = new Activity(budgetTime, start, end, activityName);
+		activities.add(activity);
 	}
+	
+	public Activity getActivityByName(String activityName) {
+		for (int i = 0; i < activities.size();i++) {
+	        if(activities.get(i).getActivityName().equals(activityName)) {
+	            return activities.get(i);
+	        }  
+		}
+		return null;
+
+
+		}
 	
 
 	
