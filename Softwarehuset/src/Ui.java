@@ -17,13 +17,14 @@ public class Ui extends JFrame implements ActionListener {
 	
 
 	private static JButton projectButton, addProject, addEmployee, employeeList, 
-					okButton, searchProjects, mainMenu; 
-	private static JTextField whatProject, expectedTimeTxt;
+					okButton, searchProjects, mainMenu, addEmployeeButton; 
+	private static JTextField whatProject, expectedTimeTxt, nameOfEmployee;
 	private static Softwarehuset sh = new Softwarehuset();
 	private static Project project;
-	private JLabel projectNameLab, expectedTimeLab;
+	private JLabel projectNameLab, expectedTimeLab, employeeName;;
 	private Dimension fieldsize, panelsize, txtsize, jPanelsize;
 	private JPanel mainMenuPanel;
+
 
 	
 
@@ -32,8 +33,9 @@ public class Ui extends JFrame implements ActionListener {
 		Dimension btnsize = new Dimension(100,30);
 		txtsize = new Dimension(300,30);
 		fieldsize = new Dimension(200,20);
-		panelsize = new Dimension(100,15);
 		jPanelsize = new Dimension(700,700);
+		panelsize = new Dimension(200,15);
+
 		
 		
 		getContentPane().setLayout(new BorderLayout());
@@ -76,13 +78,13 @@ public class Ui extends JFrame implements ActionListener {
 		
 		// Creating Labels
 		
-		projectNameLab = new JLabel("Project Name");
-		projectNameLab.setMaximumSize(panelsize);
-		projectNameLab.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		projectNameLab = makingJLabel("Project Name", panelsize);
 		
-		expectedTimeLab = new JLabel("Expected time");
-		expectedTimeLab.setMaximumSize(panelsize);
-		expectedTimeLab.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		expectedTimeLab = makingJLabel("Expected time", panelsize);
+		
+		employeeName = makingJLabel("Name of employee: ", panelsize);
+		nameOfEmployee = makingJTextField(fieldsize); 
+		addEmployeeButton = makingJButton("Add employee");
 		
 		// Main Menu Panel
 		
@@ -133,7 +135,7 @@ public class Ui extends JFrame implements ActionListener {
 			mainMenuPanel.add(mainMenu);
 			
 			getContentPane().setLayout(new BorderLayout());
-			getContentPane().add(mainMenu);
+			getContentPane().add(mainMenuPanel);
 			
 		}
 		// Add employee in Menu
@@ -143,9 +145,38 @@ public class Ui extends JFrame implements ActionListener {
 			getContentPane().setVisible(true);
 			
 			
+			JPanel textpanel = new JPanel();
+			textpanel.setLayout(new BoxLayout(textpanel, BoxLayout.Y_AXIS));
+			textpanel.add(Box.createRigidArea(new Dimension(110,5)));
+			textpanel.add(nameOfEmployee,BorderLayout.CENTER);
+			JPanel lab1 = new JPanel();
+			lab1.setLayout(new BoxLayout(lab1, BoxLayout.PAGE_AXIS));
+			lab1.add(employeeName);
+			JPanel buttonpanelProjects = new JPanel();
+			buttonpanelProjects.setMinimumSize(new Dimension(700,700));
+			buttonpanelProjects.setMaximumSize(new Dimension(700,700));
+
+			buttonpanelProjects.setLayout(new BoxLayout(buttonpanelProjects, BoxLayout.Y_AXIS));
+			buttonpanelProjects.add(addEmployeeButton);
+			buttonpanelProjects.add(mainMenu);
 			
-			
-			
+
+			getContentPane().setLayout(new BorderLayout());
+			getContentPane().add(textpanel, BorderLayout.CENTER);
+			getContentPane().add(buttonpanelProjects, BorderLayout.EAST);
+			getContentPane().add(lab1, BorderLayout.WEST);
+				
+		}
+		
+		if (arg0.getSource() == addEmployeeButton) {
+			try {
+				sh.addEmployee(nameOfEmployee.getText());
+				nameOfEmployee.setText("Employee has been added");
+			} catch (OperationNotAllowedException e) {
+				// TODO Auto-generated catch block
+				nameOfEmployee.setText(e.getMessage());
+			}
+
 		}
 		
 		// Adding project
@@ -166,12 +197,11 @@ public class Ui extends JFrame implements ActionListener {
 
 			buttonpanelProjects.setLayout(new BoxLayout(buttonpanelProjects, BoxLayout.Y_AXIS));
 			buttonpanelProjects.add(okButton);
+			buttonpanelProjects.add(mainMenu);
 			
 			JPanel lab1 = new JPanel();
 			lab1.setLayout(new BoxLayout(lab1, BoxLayout.PAGE_AXIS));
-//			lab1.add(Box.createRigidArea(fieldsize));
 			lab1.add(projectNameLab);
-//			lab1.add(Box.createRigidArea(fieldsize));
 			lab1.add(expectedTimeLab);
 			
 			
@@ -192,10 +222,9 @@ public class Ui extends JFrame implements ActionListener {
 				// TODO Auto-generated catch block
 				whatProject.setText(e.getMessage());
 			}
-//			getContentPane().setVisible(false);
-//			getContentPane().removeAll();
-//			getContentPane().setVisible(true);
+
 			
+
 		
 		}
 		// Main menu button function
@@ -209,7 +238,11 @@ public class Ui extends JFrame implements ActionListener {
 		
 		
 		
-	}
+
+		}
+		
+
+	
 	
 	public JButton makingJButton(String buttonName) {
 		
@@ -227,10 +260,18 @@ public class Ui extends JFrame implements ActionListener {
 		
 		JTextField e = new JTextField(20);
 		e.setMaximumSize(dimension);
-		e.setAlignmentX(Component.LEFT_ALIGNMENT);
+		e.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		
 		return e;
 	}
+	public JLabel makingJLabel(String name, Dimension size) {
+		
+		JLabel e = new JLabel(name);
+		e.setMaximumSize(size);
+		e.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		return e;
+	}
+	
 	
 	public JPanel makingJPanel(Dimension dimension) {
 		JPanel e = new JPanel();
@@ -241,8 +282,7 @@ public class Ui extends JFrame implements ActionListener {
 		return e;
 	}
 	
-	public void menuReset() {
-getContentPane().setLayout(new BorderLayout());
+	public void menuReset() {getContentPane().setLayout(new BorderLayout());
 		
 		// Creating a project button
 		projectButton = makingJButton("List of projects");
