@@ -22,13 +22,9 @@ public class Employee {
 		}
 	}
 
-	// Har vi brug for denne metode????
-	// -- Test af merge --
-	// måske
+
 	public String getName() {
 		return Name;
-		
-		
 	}
 	// Returner intialier p� User 
 	public String getID(){ 
