@@ -5,14 +5,18 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class Ui extends JFrame implements ActionListener {
 	
+
 	private static JButton project, addProject, addEmployee, employeeList; 
+	private static JTextField whatProject;
 
 	public Ui() {
 		getContentPane().setLayout(new BorderLayout());
@@ -60,13 +64,38 @@ public class Ui extends JFrame implements ActionListener {
 		
 		
 		getContentPane().add(buttonpanel, BorderLayout.CENTER);
+		
+		Dimension fieldsize = new Dimension(200,20);
+		
+		whatProject = new JTextField(20);
+		whatProject.setMaximumSize(fieldsize);
+		whatProject.setMaximumSize(new Dimension(1200,100));
+		whatProject.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		
+		
+		//opretter panel til textfields
+	
 	}
 	
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		if (arg0.getSource() == project) {
+			getContentPane().setVisible(false);
+			getContentPane().removeAll();
+			getContentPane().setVisible(true);
+			
+			JPanel textpanel = new JPanel();
+			textpanel.setLayout(new BoxLayout(textpanel, BoxLayout.Y_AXIS));
+			textpanel.add(Box.createRigidArea(new Dimension(110,5)));
+			textpanel.add(whatProject,BorderLayout.CENTER);
+			
+			
+			getContentPane().setLayout(new BorderLayout());
+			getContentPane().add(textpanel);
+			
+			
+		}
 	}
 	
 	public static void main(String[] args) {
