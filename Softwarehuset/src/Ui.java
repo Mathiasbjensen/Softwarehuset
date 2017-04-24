@@ -141,6 +141,7 @@ public class Ui extends JFrame implements ActionListener {
 			buttonpanelProjects.setLayout(new BoxLayout(buttonpanelProjects, BoxLayout.Y_AXIS));
 			buttonpanelProjects.add(addEmployeeButton);
 			
+
 			getContentPane().setLayout(new BorderLayout());
 			getContentPane().add(textpanel, BorderLayout.CENTER);
 			getContentPane().add(buttonpanelProjects, BorderLayout.EAST);
@@ -156,6 +157,7 @@ public class Ui extends JFrame implements ActionListener {
 				// TODO Auto-generated catch block
 				nameOfEmployee.setText(e.getMessage());
 			}
+
 		}
 		
 		// Adding project
@@ -193,10 +195,15 @@ public class Ui extends JFrame implements ActionListener {
 		}
 		// Remember to add exception
 		if (arg0.getSource() == okButton) {
-//			sh.addProject(projectName, expectedTime, softwarehuset);
-			getContentPane().setVisible(false);
-			getContentPane().removeAll();
-			getContentPane().setVisible(true);
+			int expectedTime2 = Integer.parseInt(expectedTimeTxt.getText());
+			try {
+				sh.addProject(whatProject.getText(), expectedTime2, sh);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				whatProject.setText(e.getMessage());
+			}
+
+			
 		}
 		
 	}
