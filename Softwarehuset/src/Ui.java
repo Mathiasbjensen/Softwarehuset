@@ -17,8 +17,8 @@ public class Ui extends JFrame implements ActionListener {
 	
 
 	private static JButton projectButton, addProject, addEmployee, employeeList, 
-					okButton, searchProjects, mainMenu, addEmployeeButton; 
-	private static JTextField whatProject, expectedTimeTxt, nameOfEmployee;
+					okButton, searchProjects, mainMenu, addEmployeeButton, searchForEmployeeButton; 
+	private static JTextField whatProject, expectedTimeTxt, nameOfEmployee, searchNameOfEmployeeTxt;
 	private static Softwarehuset sh = new Softwarehuset();
 	private static Project project;
 	private JLabel projectNameLab, expectedTimeLab, employeeName;;
@@ -63,7 +63,7 @@ public class Ui extends JFrame implements ActionListener {
 		addEmployee = makingJButton("Add Employee");
 		buttonpanel.add(addEmployee);
 		
-		employeeList = makingJButton("List of employees");
+		employeeList = makingJButton("Search for employees");
 		buttonpanel.add(employeeList);
 		
 		okButton = makingJButton("OK");
@@ -85,6 +85,9 @@ public class Ui extends JFrame implements ActionListener {
 		employeeName = makingJLabel("Name of employee: ", panelsize);
 		nameOfEmployee = makingJTextField(fieldsize); 
 		addEmployeeButton = makingJButton("Add employee");
+		
+		searchForEmployeeButton = makingJButton("Search");
+		searchNameOfEmployeeTxt = makingJTextField(fieldsize);
 		
 		// Main Menu Panel
 		
@@ -213,7 +216,43 @@ public class Ui extends JFrame implements ActionListener {
 			
 			
 		}
-		// Remember to add exception
+		// Search for employee
+		if(arg0.getSource() == employeeList) {
+			getContentPane().setVisible(false);
+			getContentPane().removeAll();
+			getContentPane().setVisible(true);
+		
+			JPanel employeeListTxtPanel = new JPanel();
+			employeeListTxtPanel.setLayout(new BoxLayout(employeeListTxtPanel, BoxLayout.Y_AXIS));
+			employeeListTxtPanel.add(Box.createRigidArea(new Dimension(110,5)));
+			employeeListTxtPanel.add(searchNameOfEmployeeTxt,BorderLayout.CENTER);
+			JPanel lab2 = new JPanel();
+			lab2.setLayout(new BoxLayout(lab2, BoxLayout.PAGE_AXIS));
+			lab2.add(employeeName);
+			JPanel buttonpanelEmployees = new JPanel();
+			buttonpanelEmployees.setMinimumSize(new Dimension(700,700));
+			buttonpanelEmployees.setMaximumSize(new Dimension(700,700));
+
+			buttonpanelEmployees.setLayout(new BoxLayout(buttonpanelEmployees, BoxLayout.Y_AXIS));
+			buttonpanelEmployees.add(searchForEmployeeButton);
+			buttonpanelEmployees.add(mainMenu);
+			
+
+			getContentPane().setLayout(new BorderLayout());
+			getContentPane().add(employeeListTxtPanel, BorderLayout.CENTER);
+			getContentPane().add(buttonpanelEmployees, BorderLayout.EAST);
+			getContentPane().add(lab2, BorderLayout.WEST);
+
+		}
+		
+		if (arg0.getSource() == searchForEmployeeButton) {
+			sh.getEmployeeByID((searchNameOfEmployeeTxt.getText()));
+			searchNameOfEmployeeTxt.setText("found");
+
+		}
+		
+		
+	//////////////////////////////////////////////////////////////////////
 		if (arg0.getSource() == okButton) {
 			int expectedTime2 = Integer.parseInt(expectedTimeTxt.getText());
 			try {
