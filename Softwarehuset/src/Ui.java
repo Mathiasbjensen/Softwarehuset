@@ -33,11 +33,7 @@ public class Ui extends JFrame implements ActionListener {
 		getContentPane().setLayout(new BorderLayout());
 		
 		// Creating a project button
-		projectButton = new JButton("List of projects");
-		projectButton.addActionListener(this);
-		projectButton.setMaximumSize(new Dimension(200,200));
-		projectButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		projectButton.setAlignmentY(Component.CENTER_ALIGNMENT);
+		projectButton = makingJButton("List of projects");
 		
 		JPanel buttonpanel = new JPanel();
 		buttonpanel.setMinimumSize(new Dimension(700,700));
@@ -49,49 +45,26 @@ public class Ui extends JFrame implements ActionListener {
 		
 		
 		// Creating a button to add projects
-		addProject = new JButton("Add Project");
-		addProject.addActionListener(this);
-		addProject.setMaximumSize(new Dimension(200,200));
-		addProject.setAlignmentX(Component.CENTER_ALIGNMENT);
-		addProject.setAlignmentY(Component.CENTER_ALIGNMENT);
+		addProject = makingJButton("Add Project");
 		buttonpanel.add(addProject);
 		
 		//Button to add employee
 		
-		addEmployee = new JButton("Add Employee");
-		addEmployee.addActionListener(this);
-		addEmployee.setMaximumSize(new Dimension(200,200));
-		addEmployee.setAlignmentX(Component.CENTER_ALIGNMENT);
-		addEmployee.setAlignmentY(Component.CENTER_ALIGNMENT);
+		addEmployee = makingJButton("Add Employee");
 		buttonpanel.add(addEmployee);
 		
-		employeeList = new JButton("List of employees");
-		employeeList.addActionListener(this);
-		employeeList.setMaximumSize(new Dimension(200,200));
-		employeeList.setAlignmentX(Component.CENTER_ALIGNMENT);
-		employeeList.setAlignmentY(Component.CENTER_ALIGNMENT);
+		employeeList = makingJButton("List of employees");
 		buttonpanel.add(employeeList);
 		
-		okButton = new JButton("Add");
-		okButton.addActionListener(this);
-		okButton.setMaximumSize(new Dimension(200,200));
-		okButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		okButton.setAlignmentY(Component.CENTER_ALIGNMENT);
+		okButton = makingJButton("OK");
 		
-		searchProjects = new JButton("Search");
-		searchProjects.addActionListener(this);
-		searchProjects.setMaximumSize(new Dimension(200,200));
-		searchProjects.setAlignmentX(Component.CENTER_ALIGNMENT);
-		searchProjects.setAlignmentY(Component.CENTER_ALIGNMENT);
+		searchProjects = makingJButton("Search");
 		
 		getContentPane().add(buttonpanel, BorderLayout.CENTER);
 		
 		
 		
-		whatProject = new JTextField(20);
-		whatProject.setMaximumSize(fieldsize);
-		whatProject.setMaximumSize(new Dimension(1200,100));
-		whatProject.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		whatProject = makingJTextField(fieldsize);
 		
 		expectedTimeTxt = new JTextField(20);
 		expectedTimeTxt.setMaximumSize(fieldsize);
@@ -153,6 +126,16 @@ public class Ui extends JFrame implements ActionListener {
 			
 		}
 		
+		if (arg0.getSource() == addEmployee) {
+			getContentPane().setVisible(false);
+			getContentPane().removeAll();
+			getContentPane().setVisible(true);
+			
+			
+			
+			
+		}
+		
 		// Adding project
 		if (arg0.getSource() == addProject) {
 			getContentPane().setVisible(false);
@@ -199,6 +182,27 @@ public class Ui extends JFrame implements ActionListener {
 		
 		
 		
+	}
+	
+	public JButton makingJButton(String buttonName) {
+		
+		JButton e = new JButton(buttonName);
+		e.addActionListener(this);
+		e.setMaximumSize(new Dimension(200,200));
+		e.setAlignmentX(Component.CENTER_ALIGNMENT);
+		e.setAlignmentY(Component.CENTER_ALIGNMENT);
+		
+		return e;
+		
+	}
+	
+	public JTextField makingJTextField(Dimension dimension) {
+		
+		JTextField e = new JTextField(20);
+		e.setMaximumSize(dimension);
+		e.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		
+		return e;
 	}
 	
 	public static void main(String[] args) {
