@@ -15,6 +15,9 @@ public class ProjectLeader {
 		} catch (OperationNotAllowedException e) {
 		}
 	}
+	public double getProjectReport(){
+		return project.getRemainingTime();
+	}
 	
 	public void addEmployeeToActivity(String activity, String employee) {
 		project.getActivityByName(activity).assignEmployee(sh.getEmployeeByID(employee));

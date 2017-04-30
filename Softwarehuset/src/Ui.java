@@ -20,13 +20,12 @@ public class Ui extends JFrame implements ActionListener {
 	private static JButton projectButton, addProject, addEmployee, employeeList, okButton, searchProjects, 
 	mainMenu, addEmployeeButton, searchForEmployeeButton, addActivityButton, 
 	assignProjectLeader, addActivity, findActivity, iAmProjectLeader, setWorkHoursButton, addEmployeeToActivity,
-	 projectLeaderButtonFinal, searchActivity, addEmployeeToActivityButton; 
+	 getReport, employeesConnectedToActivity, requestHelp, projectLeaderButtonFinal, searchActivity, addEmployeeToActivityButton; 
 	private static JTextField whatProject, expectedTimeTxt, nameOfEmployee, searchNameOfEmployeeTxt, whatActivity, employeeNameTxt;
 
 	private static Softwarehuset sh = new Softwarehuset();
 	private static Project project;
-	private JLabel projectNameLab, expectedTimeLab, employeeName, activityName, addEmployeeToActivityEmployeeNameLabel,
-					addEmployeeToActivityNameLabel;
+	private JLabel projectNameLab, expectedTimeLab, employeeName, activityName, addEmployeeToActivityEmployeeNameLabel, addEmployeeToActivityNameLabel;
 	private Dimension fieldsize, panelsize, txtsize, jPanelsize;
 	private JPanel mainMenuPanel, addActivityPanelTxt, addEmployeeToActivityPanelTxt, addEmployeeToActivityLabelPanel, addEmployeeToActivityButtonPanel;
 	private JTextField budgetTimeTxt;
@@ -97,9 +96,7 @@ public class Ui extends JFrame implements ActionListener {
 		// Creating Labels
 		
 		projectNameLab = makingJLabel("Project Name", panelsize);
-		
 		expectedTimeLab = makingJLabel("Expected time", panelsize);
-		
 		employeeName = makingJLabel("Name of employee: ", panelsize);
 		nameOfEmployee = makingJTextField(fieldsize); 
 		addEmployeeButton = makingJButton("Add employee");
@@ -121,11 +118,17 @@ public class Ui extends JFrame implements ActionListener {
 		// Buttons til Project Leader klassen
 		addActivity = makingJButton("Add an activity to project");
 		addEmployeeToActivity = makingJButton("Add employee to an activity");
+		getReport = makingJButton("Get report of project");
 
 		projectLeaderButtonFinal = makingJButton("Assign");
 		whatActivity = makingJTextField(fieldsize);
 		searchActivity = makingJButton("Search");
 		activityName = makingJLabel("Name of activity: ", panelsize);
+		
+		// Buttons til Activity klassen
+		employeesConnectedToActivity = makingJButton("Get List of employees working on this activity");
+		requestHelp = makingJButton("Request help");
+		
 
 		
 	}
@@ -359,6 +362,7 @@ public class Ui extends JFrame implements ActionListener {
 				buttonpanelProjectLeader.setLayout(new BoxLayout(buttonpanelProjectLeader, BoxLayout.Y_AXIS));
 				buttonpanelProjectLeader.add(addActivity);
 				buttonpanelProjectLeader.add(addEmployeeToActivity);
+				buttonpanelProjectLeader.add(getReport);
 				
 				buttonpanelProjectLeader.add(mainMenu);
 				
@@ -485,7 +489,25 @@ public class Ui extends JFrame implements ActionListener {
 			getContentPane().add(buttonpanelProjects, BorderLayout.EAST);
 			
 		}
-		
+		//FÅ REPORT!
+		if (arg0.getSource() == getReport) {
+			
+		}
+		if (arg0.getSource() == searchActivity) {
+			getContentPane().setVisible(false);
+			getContentPane().removeAll();
+			getContentPane().setVisible(true);
+			
+			JPanel buttonPanelActivity = makingJPanel(jPanelsize);
+			buttonPanelActivity.add(assignProjectLeader);
+			buttonPanelActivity.add(iAmProjectLeader);
+			buttonPanelActivity.add(findActivity);
+			buttonPanelActivity.add(mainMenu);
+			
+			
+			getContentPane().setLayout(new BorderLayout());
+			getContentPane().add(mainMenuPanel);
+		}
 		}
 		
 	
@@ -570,7 +592,7 @@ public class Ui extends JFrame implements ActionListener {
 	
 	}
 	
-	public static void main(String[] args) {
+	public void main(String[] args) {
 		Ui test = new Ui();
 
 //		test.setUndecorated(true);

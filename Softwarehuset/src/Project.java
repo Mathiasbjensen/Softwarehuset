@@ -6,14 +6,14 @@ public class Project {
 	//ID should be without year.
 	private String ID;
 	private String projectName;
-	private int expectedTime;
+	private double expectedTime;
 	private Softwarehuset sh;
 	private List<Activity> activities = new ArrayList<Activity>();
 	// Stupid to have an array for ONE projectleader??
-	private List<ProjectLeader> projectLeaders = new ArrayList<ProjectLeader>();
+	private ProjectLeader projectleader;
 	
 	
-	public Project(String projectName, int expectedTime, Softwarehuset softwarehuset) {
+	public Project(String projectName, double expectedTime, Softwarehuset softwarehuset) {
 		
 		this.sh = softwarehuset;
 		int year = softwarehuset.dateserver.getYear();
@@ -32,9 +32,10 @@ public class Project {
 		Employee employee = sh.getEmployeeByID(employeeID);
 		try {
 			if(sh.getEmployees().contains(employee)) {
-				
+
 			ProjectLeader projectLeader = new ProjectLeader(employee, sh, this);
-			projectLeaders.add(projectLeader);
+			this.projectleader = projectLeader;
+
 			
 			}
 			else {
@@ -45,17 +46,19 @@ public class Project {
 		}
 	}
 	
-	public List<ProjectLeader> getProjectLeader() {
-		return projectLeaders;
+	public ProjectLeader getProjectLeader() {
+		return projectleader;
 	}
 	
 
 	
 	// CONSIDER GIVING ACTIVITY A NAME???????
+
+
 	public void addActivity(int budgetTime, int start, int end, String activityName) throws OperationNotAllowedException {
 		
 		if (!activities.contains(getActivityByName(activityName))) {
-		Activity activity = new Activity(budgetTime, start, end, activityName);
+		Activity activity = new Activity(budgetTime, start, end, activityName, this);
 		activities.add(activity);
 	}
 		else { throw new OperationNotAllowedException("That activity name is already taken.", "Add activity.");
@@ -75,6 +78,16 @@ public class Project {
 
 
 		}
+	public void changeExpectedTime(double i) {
+		this.expectedTime = expectedTime + i;
+	}
+	public double getRemainingTime() {
+		int remainingtime = 0;
+		for (int i = 0; i < activities.size();i++) {
+			expectedTime = expectedTime + activities.get(i).getETA();
+		}
+		return remainingtime;
+	}
 	
 
 	
