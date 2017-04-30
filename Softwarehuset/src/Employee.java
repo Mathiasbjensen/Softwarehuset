@@ -43,7 +43,8 @@ public class Employee {
 		}
 		}
 	}
-	public void addEmployeeToActivity(Activity activity) {
+
+	public void updateListOfActivity(Activity activity) {
 		// Adding the activity to the week calendar.
 		for(int i = activity.getStart()-1; i <= activity.getEnd()-1; i++) {
 		weekCalendar[i].add(activity);
@@ -53,7 +54,6 @@ public class Employee {
 			sh.removeFreeEmployee(this, i, i);
 		}
 		}
-		
 		
 		
 	}

@@ -32,9 +32,10 @@ public class Project {
 		Employee employee = sh.getEmployeeByID(employeeID);
 		try {
 			if(sh.getEmployees().contains(employee)) {
-				
-			ProjectLeader projectLeader = new ProjectLeader(employee, this);
+
+			ProjectLeader projectLeader = new ProjectLeader(employee, sh, this);
 			this.projectleader = projectLeader;
+
 			
 			}
 			else {
@@ -55,9 +56,8 @@ public class Project {
 
 
 	public void addActivity(int budgetTime, int start, int end, String activityName) throws OperationNotAllowedException {
-		
-		if (!activities.contains(getActivityByName(activityName))) {
 		Activity activity = new Activity(budgetTime, start, end, activityName, this);
+		if (!activities.contains(activity)) {
 		activities.add(activity);
 	}
 		else { throw new OperationNotAllowedException("That activity name is already taken.", "Add activity.");
@@ -67,11 +67,13 @@ public class Project {
 		
 	}
 	
-	public Activity getActivityByName(String activityName) {
+	public Activity getActivityByName(String activityName) throws Exception{
+		
 		for (int i = 0; i < activities.size();i++) {
 	        if(activities.get(i).getActivityName().equals(activityName)) {
 	            return activities.get(i);
-	        }  
+	        } 
+	        
 		}
 		return null;
 

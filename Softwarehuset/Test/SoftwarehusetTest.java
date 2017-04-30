@@ -87,7 +87,7 @@ public class SoftwarehusetTest {
 		project.assignProjectLeader("anne");
 		project.getProjectLeader().get(0).addActivity(75, 2, 5,"activityTest");
 		
-		sh.getEmployeeByID("skod").addEmployeeToActivity(project.getActivityByName("activityTest"));
+//		sh.getEmployeeByID("skod").addEmployeeToActivity(project.getActivityByName("activityTest"));
 		
 		
 	}

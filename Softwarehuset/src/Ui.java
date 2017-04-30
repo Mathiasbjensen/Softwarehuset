@@ -23,15 +23,16 @@ public class Ui extends JFrame implements ActionListener {
 	private static JButton projectButton, addProject, addEmployee, employeeList, okButton, searchProjects, 
 	mainMenu, addEmployeeButton, searchForEmployeeButton, addActivityButton, 
 	assignProjectLeader, addActivity, findActivity, iAmProjectLeader, setWorkHoursButton, addEmployeeToActivity,
-	 projectLeaderButtonFinal, searchActivity, getReport, employeesConnectedToActivity, registerTime, register; 
+
+	 projectLeaderButtonFinal, searchActivity, getReport, employeesConnectedToActivity, registerTime, register, addEmployeeToActivityButton; 
 	private static JTextField whatProject, expectedTimeTxt, nameOfEmployee, searchNameOfEmployeeTxt, 
-	whatActivity, howManyHours;
+	whatActivity, howManyHours, employeeNameTxt, activityNameTxt1;
 	private static JList listOfEmployees; 
 	private static Softwarehuset sh = new Softwarehuset();
 	private Project project;
-	private JLabel projectNameLab, expectedTimeLab, employeeName, activityName;
+	private JLabel projectNameLab, expectedTimeLab, employeeName, activityName,  addEmployeeToActivityEmployeeNameLabel, addEmployeeToActivityNameLabel;
 	private Dimension fieldsize, panelsize, txtsize, jPanelsize;
-	private JPanel mainMenuPanel, addActivityPanelTxt;
+	private JPanel mainMenuPanel, addActivityPanelTxt, addEmployeeToActivityPanelTxt, addEmployeeToActivityLabelPanel, addEmployeeToActivityButtonPanel;
 	private JTextField budgetTimeTxt;
 	private JTextField startTimeTxt;
 	private JTextField endTimeTxt;
@@ -42,7 +43,8 @@ public class Ui extends JFrame implements ActionListener {
 	private JLabel startTimeLabel;
 	private JLabel endTimeLabel;
 	private JPanel addActivityPanelButton;
-	private static Activity activity;
+	private Activity activity;
+	private ProjectLeader projectLeader;
 
 
 
@@ -359,7 +361,7 @@ public class Ui extends JFrame implements ActionListener {
 				getContentPane().setVisible(false);
 				getContentPane().removeAll();
 				getContentPane().setVisible(true);
-				
+				this.projectLeader = project.getProjectLeader();
 				JPanel buttonpanelProjectLeader = new JPanel();
 				buttonpanelProjectLeader.setMinimumSize(new Dimension(700,700));
 				buttonpanelProjectLeader.setMaximumSize(new Dimension(700,700));
@@ -429,6 +431,46 @@ public class Ui extends JFrame implements ActionListener {
 			}
 		}
 		
+		// Assign an employee to an activity
+		
+		if (arg0.getSource() == addEmployeeToActivity) {
+			getContentPane().setVisible(false);
+			getContentPane().removeAll();
+			getContentPane().setVisible(true);
+			
+			addEmployeeToActivityPanelTxt = makingJPanel(jPanelsize);
+			activityNameTxt1 = makingJTextField(txtsize);
+			
+			employeeNameTxt = makingJTextField(txtsize);
+			addEmployeeToActivityPanelTxt.add(employeeNameTxt);
+			addEmployeeToActivityPanelTxt.add(activityNameTxt1);
+			
+
+			addEmployeeToActivityLabelPanel = makingJPanel(jPanelsize);
+			addEmployeeToActivityEmployeeNameLabel = makingJLabel("Employee Name", panelsize);
+			addEmployeeToActivityNameLabel = makingJLabel("Activity Name", panelsize);
+			
+			addEmployeeToActivityLabelPanel.add(addEmployeeToActivityEmployeeNameLabel);
+			addEmployeeToActivityLabelPanel.add(addEmployeeToActivityNameLabel);
+			
+			addEmployeeToActivityButtonPanel = makingJPanel(jPanelsize);
+			addEmployeeToActivityButton = makingJButton("Add Employee to Activity");
+			
+			addEmployeeToActivityButtonPanel.add(addEmployeeToActivityButton);
+			addEmployeeToActivityButtonPanel.add(mainMenu);
+			
+			getContentPane().setLayout(new BorderLayout());
+			getContentPane().add(addEmployeeToActivityPanelTxt, BorderLayout.CENTER);
+			getContentPane().add(addEmployeeToActivityButtonPanel, BorderLayout.EAST);
+			getContentPane().add(addEmployeeToActivityLabelPanel, BorderLayout.WEST);
+		}
+		
+		if (arg0.getSource() == addEmployeeToActivityButton) {
+			projectLeader.addEmployeeToActivity(activityNameTxt1.getText(), employeeNameTxt.getText());
+			activityNameTxt1.setText("Employee has been added to the activity");
+			
+			
+		}
 		
 		if (arg0.getSource() == findActivity) {
 			getContentPane().setVisible(false);
@@ -455,7 +497,12 @@ public class Ui extends JFrame implements ActionListener {
 			
 		}
 		if (arg0.getSource() == searchActivity) {
-			this.activity = project.getActivityByName(whatActivity.getText());
+			try {
+				this.activity = project.getActivityByName(whatActivity.getText());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				whatActivity.setText("No activity with that name");
+			}
 			getContentPane().setVisible(false);
 			getContentPane().removeAll();
 			getContentPane().setVisible(true);
@@ -565,7 +612,7 @@ public class Ui extends JFrame implements ActionListener {
 		buttonpanel.add(projectButton);
 		
 		
-		mainMenu = makingJButton("Back");
+		mainMenu = makingJButton("Main Menu");
 		
 		// Creating a button to add projects
 		addProject = makingJButton("Add Project");
@@ -609,6 +656,7 @@ public class Ui extends JFrame implements ActionListener {
 		try {
 			sh.addProject("skod", 123, sh);
 			sh.addEmployee("hans");
+
 			sh.addEmployee("abcd");
 			sh.addEmployee("lort");
 			sh.addEmployee("skid");
@@ -617,9 +665,9 @@ public class Ui extends JFrame implements ActionListener {
 			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("abcd"));
 			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("lort"));
 			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("skid"));
+			sh.addEmployee("anne");
+
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	
 	}
