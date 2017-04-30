@@ -76,7 +76,7 @@ public class Project {
 	        } 
 	        
 		}
-		throw new OperationNotAllowedException("No found activity with that name", "get activity by name");
+		return null;
 
 
 		}

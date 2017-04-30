@@ -11,10 +11,11 @@ public class ProjectLeader {
 	}
 	
 	public void addActivity(int budgetTime, int start, int end, String activityName) {
-		try {
-			project.addActivity(budgetTime, start, end, activityName);
-		} catch (OperationNotAllowedException e) {
-		}
+			try {
+				project.addActivity(budgetTime, start, end, activityName);
+			} catch (Exception e) {
+			}
+
 	}
 	public double getProjectReport(){
 		return project.getRemainingTime();

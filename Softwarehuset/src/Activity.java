@@ -7,7 +7,7 @@ public class Activity {
 	private int start, end;
 	private double totalHours;
 	private String activityName;
-	private List<Employee> ActivityEmployees = new ArrayList<Employee>();
+	private List<Employee> activityEmployees = new ArrayList<Employee>();
 	private Project project;
 	
 	public Activity(int budgetTime, int start, int end, String activityName, Project project) {
@@ -22,10 +22,10 @@ public class Activity {
 		return activityName;
 	}
 	
-	public void assignEmployee(Employee employee) throws Exception{
+	public void assignEmployee(Employee employee) throws OperationNotAllowedException{
 		
-		if(!ActivityEmployees.contains(employee)) {
-		ActivityEmployees.add(employee);
+		if(!activityEmployees.contains(employee)) {
+		activityEmployees.add(employee);
 		employee.updateListOfActivity(this);
 		}
 		
@@ -35,7 +35,7 @@ public class Activity {
 		
 	}
 	public List<Employee> getAssignedEmployees() {
-		return ActivityEmployees;
+		return activityEmployees;
 	}
 	public int getStart() {
 		return start;
