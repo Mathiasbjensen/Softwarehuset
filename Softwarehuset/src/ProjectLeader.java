@@ -11,6 +11,9 @@ public class ProjectLeader {
 	public void addActivity(int budgetTime, int start, int end, String activityName) {
 		project.addActivity(budgetTime, start, end, activityName);
 	}
+	public double getProjectReport(){
+		return project.getRemainingTime();
+	}
 	
 	
 	

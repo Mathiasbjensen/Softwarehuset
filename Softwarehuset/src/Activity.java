@@ -8,12 +8,14 @@ public class Activity {
 	private double totalHours;
 	private String activityName;
 	private List<Employee> ActivityEmployees = new ArrayList<Employee>();
+	private Project project;
 	
-	public Activity(int budgetTime, int start, int end, String activityName) {
+	public Activity(int budgetTime, int start, int end, String activityName, Project project) {
 		this.budgetTime = budgetTime;
 		this.start = start;
 		this.end = end;
 		this.activityName = activityName;
+		this.project = project;
 	}
 	
 	public String getActivityName() {
@@ -52,6 +54,8 @@ public class Activity {
 	
 	public void setWorkHours(double hours) {
 		this.totalHours+=hours;
+		project.changeExpectedTime(-hours);
+		
 	}
 	
 	public double getWorkHours() {
@@ -59,9 +63,9 @@ public class Activity {
 	}
 	
 	// Til test
-	public static void main(String[] args) {
-		Activity hans = new Activity(200, 1,2,"hans");
-		Activity skod = new Activity(300,2,3,"grete");
+	public void main(String[] args) {
+		Activity hans = new Activity(200, 1,2,"hans", project);
+		Activity skod = new Activity(300,2,3,"grete", project);
 		hans.setBudgetTime(2);
 		System.out.println(hans.getETA());
 	}
