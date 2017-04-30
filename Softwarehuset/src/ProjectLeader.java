@@ -9,7 +9,12 @@ public class ProjectLeader {
 	}
 	
 	public void addActivity(int budgetTime, int start, int end, String activityName) {
-		project.addActivity(budgetTime, start, end, activityName);
+		try {
+			project.addActivity(budgetTime, start, end, activityName);
+		} catch (OperationNotAllowedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public double getProjectReport(){
 		return project.getRemainingTime();

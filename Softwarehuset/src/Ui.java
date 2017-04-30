@@ -370,7 +370,7 @@ public class Ui extends JFrame implements ActionListener {
 				getContentPane().add(buttonpanelProjectLeader, BorderLayout.CENTER);
 				
 				
-			
+			// Add activity 1
 		}
 		if (arg0.getSource() == addActivity) {
 			getContentPane().setVisible(false);
@@ -403,13 +403,27 @@ public class Ui extends JFrame implements ActionListener {
 			addActivityPanelButton = makingJPanel(jPanelsize);
 			addActivityButton = makingJButton("Add Activity");
 			addActivityPanelButton.add(addActivityButton);
+			addActivityPanelButton.add(mainMenu);
 			
 			getContentPane().setLayout(new BorderLayout());
 			getContentPane().add(addActivityPanelTxt, BorderLayout.CENTER);
 			getContentPane().add(addActivityPanelButton, BorderLayout.EAST);
 			getContentPane().add(addActivityLabels, BorderLayout.WEST);
 		//			
-		}	
+		}
+		
+		if(arg0.getSource() == addActivityButton) {
+			try {
+			project.addActivity(Integer.parseInt(budgetTimeTxt.getText()), Integer.parseInt(startTimeTxt.getText()), Integer.parseInt(endTimeTxt.getText()), 
+					activityNameTxt.getText());
+			
+			} catch (OperationNotAllowedException e) {
+					activityNameTxt.setText(e.getMessage());
+					
+			}
+		}
+		
+		
 		if (arg0.getSource() == findActivity) {
 			getContentPane().setVisible(false);
 			getContentPane().removeAll();
@@ -533,7 +547,7 @@ public class Ui extends JFrame implements ActionListener {
 	
 	}
 	
-	public static void main(String[] args) {
+	public void main(String[] args) {
 		Ui test = new Ui();
 
 //		test.setUndecorated(true);
@@ -543,6 +557,15 @@ public class Ui extends JFrame implements ActionListener {
 		test.setVisible(true);
 		test.setSize(700,400);
 		test.setResizable(false);
+		
+		// Premade projects etc.
+		try {
+			sh.addProject("skod", 123, sh);
+			sh.addEmployee("hans");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
 	}
 	

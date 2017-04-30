@@ -52,9 +52,19 @@ public class Project {
 
 	
 	// CONSIDER GIVING ACTIVITY A NAME???????
-	public void addActivity(int budgetTime, int start, int end, String activityName) {
-		Activity activity = new Activity(budgetTime, start, end, activityName,this);
+
+
+	public void addActivity(int budgetTime, int start, int end, String activityName) throws OperationNotAllowedException {
+		
+		if (!activities.contains(getActivityByName(activityName))) {
+		Activity activity = new Activity(budgetTime, start, end, activityName, this);
 		activities.add(activity);
+	}
+		else { throw new OperationNotAllowedException("That activity name is already taken.", "Add activity.");
+		
+		}
+		
+		
 	}
 	
 	public Activity getActivityByName(String activityName) {
