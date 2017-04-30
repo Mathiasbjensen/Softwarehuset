@@ -3,7 +3,8 @@ import java.util.Calendar;
 public class ProjectLeader {
 	
 	Project project;
-	public ProjectLeader(Employee employee, Project project) {
+	Softwarehuset sh;
+	public ProjectLeader(Employee employee, Softwarehuset sh, Project project) {
 		this.project = project;
 		
 	}
@@ -12,11 +13,15 @@ public class ProjectLeader {
 		try {
 			project.addActivity(budgetTime, start, end, activityName);
 		} catch (OperationNotAllowedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 	
+	public void addEmployeeToActivity(String activity, String employee) {
+		project.getActivityByName(activity).assignEmployee(sh.getEmployeeByID(employee));
+		
+	}
+	
+
 	
 	
 	

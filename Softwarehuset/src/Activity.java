@@ -22,6 +22,7 @@ public class Activity {
 	
 	public void assignEmployee(Employee employee) {
 		ActivityEmployees.add(employee);
+		employee.updateListOfActivity(this);
 		
 	}
 	public List<Employee> getAssignedEmployees() {

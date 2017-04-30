@@ -5,9 +5,9 @@ import java.util.List;
 public class Softwarehuset {
 
 
-	private List<Employee> employees = new ArrayList<Employee>();
-	private List<ProjectLeader> projectLeaders = new ArrayList<ProjectLeader>();
-	private List<Project> projects = new ArrayList<Project>();
+	private ArrayList<Employee> employees = new ArrayList<Employee>();
+	private ArrayList<ProjectLeader> projectLeaders = new ArrayList<ProjectLeader>();
+	private ArrayList<Project> projects = new ArrayList<Project>();
 //	private List <Employee> freeEmployees = new ArrayList<Employee>();
 	private ArrayList[] freeEmployees = new ArrayList[52];
 

@@ -33,7 +33,7 @@ public class Project {
 		try {
 			if(sh.getEmployees().contains(employee)) {
 				
-			ProjectLeader projectLeader = new ProjectLeader(employee, this);
+			ProjectLeader projectLeader = new ProjectLeader(employee, sh, this);
 			projectLeaders.add(projectLeader);
 			
 			}
