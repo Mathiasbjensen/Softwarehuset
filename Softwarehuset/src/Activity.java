@@ -22,9 +22,16 @@ public class Activity {
 		return activityName;
 	}
 	
-	public void assignEmployee(Employee employee) {
+	public void assignEmployee(Employee employee) throws Exception{
+		
+		if(!ActivityEmployees.contains(employee)) {
 		ActivityEmployees.add(employee);
 		employee.updateListOfActivity(this);
+		}
+		
+		else {
+			throw new OperationNotAllowedException("Employee is already working on this activity", "assign employee to activity");
+		}
 		
 	}
 	public List<Employee> getAssignedEmployees() {

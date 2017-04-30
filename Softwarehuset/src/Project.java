@@ -55,7 +55,7 @@ public class Project {
 	// CONSIDER GIVING ACTIVITY A NAME???????
 
 
-	public void addActivity(int budgetTime, int start, int end, String activityName) throws OperationNotAllowedException {
+	public void addActivity(int budgetTime, int start, int end, String activityName) throws Exception {
 		
 		if (!activities.contains(getActivityByName(activityName))) {
 		Activity activity = new Activity(budgetTime, start, end, activityName, this);
@@ -68,13 +68,15 @@ public class Project {
 		
 	}
 	
-	public Activity getActivityByName(String activityName) {
+	public Activity getActivityByName(String activityName) throws Exception{
+		
 		for (int i = 0; i < activities.size();i++) {
 	        if(activities.get(i).getActivityName().equals(activityName)) {
 	            return activities.get(i);
-	        }  
+	        } 
+	        
 		}
-		return null;
+		throw new OperationNotAllowedException("No found activity with that name", "get activity by name");
 
 
 		}

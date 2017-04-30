@@ -6,6 +6,7 @@ public class ProjectLeader {
 	Softwarehuset sh;
 	public ProjectLeader(Employee employee, Softwarehuset sh, Project project) {
 		this.project = project;
+		this.sh = sh;
 		
 	}
 	
@@ -20,7 +21,12 @@ public class ProjectLeader {
 	}
 	
 	public void addEmployeeToActivity(String activity, String employee) {
-		project.getActivityByName(activity).assignEmployee(sh.getEmployeeByID(employee));
+		
+		try {
+			project.getActivityByName(activity).assignEmployee(sh.getEmployeeByID(employee));
+		} catch (Exception e) {
+			
+		}
 		
 	}
 	

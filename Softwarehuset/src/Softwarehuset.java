@@ -100,7 +100,6 @@ public class Softwarehuset {
 		throw new OperationNotAllowedException("No project by this name", "Get project by name");
 		
 
-
 		}
 
 	public List<Project> getProjects() {

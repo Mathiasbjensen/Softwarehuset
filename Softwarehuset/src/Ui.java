@@ -21,7 +21,7 @@ public class Ui extends JFrame implements ActionListener {
 	mainMenu, addEmployeeButton, searchForEmployeeButton, addActivityButton, 
 	assignProjectLeader, addActivity, findActivity, iAmProjectLeader, setWorkHoursButton, addEmployeeToActivity,
 	 getReport, employeesConnectedToActivity, requestHelp, projectLeaderButtonFinal, searchActivity, addEmployeeToActivityButton; 
-	private static JTextField whatProject, expectedTimeTxt, nameOfEmployee, searchNameOfEmployeeTxt, whatActivity, employeeNameTxt;
+	private static JTextField whatProject, expectedTimeTxt, nameOfEmployee, searchNameOfEmployeeTxt, whatActivity, employeeNameTxt, activityNameTxt1;
 
 	private static Softwarehuset sh = new Softwarehuset();
 	private static Project project;
@@ -432,10 +432,11 @@ public class Ui extends JFrame implements ActionListener {
 			getContentPane().setVisible(true);
 			
 			addEmployeeToActivityPanelTxt = makingJPanel(jPanelsize);
-//			activityNameTxt = makingJTextField(txtsize);
+			activityNameTxt1 = makingJTextField(txtsize);
+			
 			employeeNameTxt = makingJTextField(txtsize);
 			addEmployeeToActivityPanelTxt.add(employeeNameTxt);
-			addEmployeeToActivityPanelTxt.add(activityNameTxt);
+			addEmployeeToActivityPanelTxt.add(activityNameTxt1);
 			
 
 			addEmployeeToActivityLabelPanel = makingJPanel(jPanelsize);
@@ -458,16 +459,11 @@ public class Ui extends JFrame implements ActionListener {
 		}
 		
 		if (arg0.getSource() == addEmployeeToActivityButton) {
+			projectLeader.addEmployeeToActivity(activityNameTxt1.getText(), employeeNameTxt.getText());
+			activityNameTxt1.setText("Employee has been added to the activity");
 			
 			
 		}
-		
-		
-		
-		
-		
-		
-		
 		
 		if (arg0.getSource() == findActivity) {
 			getContentPane().setVisible(false);
@@ -592,7 +588,7 @@ public class Ui extends JFrame implements ActionListener {
 	
 	}
 	
-	public void main(String[] args) {
+	public static void main(String[] args) {
 		Ui test = new Ui();
 
 //		test.setUndecorated(true);
@@ -607,9 +603,8 @@ public class Ui extends JFrame implements ActionListener {
 		try {
 			sh.addProject("skod", 123, sh);
 			sh.addEmployee("hans");
+			sh.addEmployee("anne");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	
 	}
