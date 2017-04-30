@@ -7,7 +7,7 @@ public class Activity {
 	private int start, end;
 	private double totalHours;
 	private String activityName;
-	private List<Employee> ActivityEmployees = new ArrayList<Employee>();
+	private ArrayList<Employee> activityEmployees = new ArrayList<Employee>();
 	private Project project;
 	
 	public Activity(int budgetTime, int start, int end, String activityName, Project project) {
@@ -23,11 +23,15 @@ public class Activity {
 	}
 	
 	public void assignEmployee(Employee employee) {
-		ActivityEmployees.add(employee);
+		activityEmployees.add(employee);
 		
 	}
-	public List<Employee> getAssignedEmployees() {
-		return ActivityEmployees;
+	public String[] getAssignedEmployees() {
+		String[] nameOfEmployees = new String[activityEmployees.size()];
+		for (int i = 0; i < activityEmployees.size(); i++) {
+			nameOfEmployees[i] = (activityEmployees.get(i).getID());
+		}
+		return nameOfEmployees;
 	}
 	public int getStart() {
 		return start;
