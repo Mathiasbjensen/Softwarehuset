@@ -6,9 +6,8 @@ public class Softwarehuset {
 
 
 	private ArrayList<Employee> employees = new ArrayList<Employee>();
-//	private ArrayList<ProjectLeader> projectLeaders = new ArrayList<ProjectLeader>();
+	//	private ArrayList<ProjectLeader> projectLeaders = new ArrayList<ProjectLeader>();
 	private ArrayList<Project> projects = new ArrayList<Project>();
-//	private List <Employee> freeEmployees = new ArrayList<Employee>();
 	private ArrayList<Employee>[] freeEmployees = new ArrayList[52];
 
 	DateServer dateserver = new DateServer();
@@ -23,13 +22,13 @@ public class Softwarehuset {
 
 
 	public void addEmployee(String ID) throws OperationNotAllowedException{
-		if(ID.length()== 4){
+		if(ID.length()== 4){ //1
 
 			Employee newEmployee = new Employee(ID, this);
 			employees.add(newEmployee);
-			
+
 			for(int i = 0; i < freeEmployees.length; i++)
-			freeEmployees[i].add(newEmployee);
+				freeEmployees[i].add(newEmployee);
 		} 
 		else {
 			throw new OperationNotAllowedException("ID has to be 4 letters","Add employee");
@@ -60,16 +59,16 @@ public class Softwarehuset {
 		}
 		return free;
 	}	
-		
-	
-		public void removeFreeEmployee(Employee employee, int weekStart, int weekEnd) {
-			for (int i = weekStart; i <= weekEnd; i++) {
-				freeEmployees[i].remove(employee);
-			}
-		}
 
-		//public ArrayList getFreeEmployee
-	
+
+	public void removeFreeEmployee(Employee employee, int weekStart, int weekEnd) {
+		for (int i = weekStart; i <= weekEnd; i++) {
+			freeEmployees[i].remove(employee);
+		}
+	}
+
+	//public ArrayList getFreeEmployee
+
 	public void addProject(String projectName, int expectedTime, Softwarehuset softwarehuset) throws Exception {
 
 		for(int i = 0; i < projects.size(); i++) {
@@ -78,28 +77,27 @@ public class Softwarehuset {
 				throw new OperationNotAllowedException("A project with that name already exists.","Add project");
 			}
 		}
-		
 
-			Project newProject = new Project(projectName, expectedTime, softwarehuset);
-			projects.add(newProject);
 
-		}
-	
+		Project newProject = new Project(projectName, expectedTime, softwarehuset);
+		projects.add(newProject);
+
+	}
+
 	public Project getProjectByName(String Name) throws Exception {
 		for (int i = 0; i < projects.size();i++) {
-	        if(projects.get(i).getProjectName().equals(Name)) {
-	            return projects.get(i);
-	        }  
+			if(projects.get(i).getProjectName().equals(Name)) {
+				return projects.get(i);
+			}  
 		}
 		throw new OperationNotAllowedException("No project by this name", "Get project by name");
-		
 
-		}
+	}
 
 	public List<Project> getProjects() {
 		return projects;
 	}
-	
+
 
 	public String getRunningNumber() {
 		this.runningNumber = runningNumber++;
@@ -121,6 +119,7 @@ public class Softwarehuset {
 		}
 		return x;
 	}
+
 	
 	public Employee getEmployeeByID(String ID) throws OperationNotAllowedException{
 	for (int i = 0; i < employees.size();i++) {
@@ -129,7 +128,7 @@ public class Softwarehuset {
         }  
 	}
 	throw new OperationNotAllowedException("No employee with that name", "Get employee by name");
-	}
 
 
+}
 }
