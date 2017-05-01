@@ -24,13 +24,16 @@ public class Ui extends JFrame implements ActionListener {
 	mainMenu, addEmployeeButton, searchForEmployeeButton, addActivityButton, 
 	assignProjectLeader, addActivity, findActivity, iAmProjectLeader, setWorkHoursButton, addEmployeeToActivity,
 	 projectLeaderButtonFinal, searchActivity, getFreeEmployees, employeesConnectedToActivity, registerTime, 
-	 register, addEmployeeToActivityButton, searchFreeEmployees; 
+	 register, addEmployeeToActivityButton, searchFreeEmployees, seeWorkHoursButton; 
 	private static JTextField whatProject, expectedTimeTxt, nameOfEmployee, searchNameOfEmployeeTxt, 
-	whatActivity, howManyHours, employeeNameTxt, activityNameTxt1, startWeek, endWeek;
+	whatActivity, howManyHours, employeeNameTxt, activityNameTxt1, startWeek, endWeek, whatEmployee,
+	workHoursTxt, whatActivityTxt;
 	private static JList listOfEmployees; 
 	private static Softwarehuset sh = new Softwarehuset();
 	private static Project project;
-	private JLabel projectNameLab, expectedTimeLab, employeeName, activityName,  addEmployeeToActivityEmployeeNameLabel, addEmployeeToActivityNameLabel;
+	private JLabel projectNameLab, expectedTimeLab, employeeName, activityName,  
+	addEmployeeToActivityEmployeeNameLabel, addEmployeeToActivityNameLabel,
+	setWorkHoursLab, whatActivityLab, whatProjectLab;
 	private Dimension fieldsize, panelsize, txtsize, jPanelsize;
 	private JPanel mainMenuPanel, addActivityPanelTxt, addEmployeeToActivityPanelTxt, addEmployeeToActivityLabelPanel, addEmployeeToActivityButtonPanel;
 	private JTextField budgetTimeTxt;
@@ -45,6 +48,7 @@ public class Ui extends JFrame implements ActionListener {
 	private JPanel addActivityPanelButton;
 	private Activity activity;
 	private ProjectLeader projectLeader;
+	private Employee employee;
 
 
 
@@ -118,7 +122,13 @@ public class Ui extends JFrame implements ActionListener {
 		iAmProjectLeader = makingJButton("I am a ProjectLeader");
 		
 		// Buttons til employee klassen
-//		setWorkHoursButton = makingJButton("Set work hours");
+		setWorkHoursButton = makingJButton("Set work hours");
+		seeWorkHoursButton = makingJButton("See work hours");
+		setWorkHoursLab = makingJLabel("Change workhours", panelsize);
+		whatActivityLab = makingJLabel("What activity", panelsize);
+		whatProjectLab = makingJLabel("What project", panelsize);
+		workHoursTxt = makingJTextField(fieldsize); 
+		whatActivityTxt = makingJTextField(fieldsize); 
 		
 		// Buttons til Project Leader klassen
 		addActivity = makingJButton("Add an activity to project");
@@ -135,6 +145,7 @@ public class Ui extends JFrame implements ActionListener {
 		registerTime = makingJButton("Register Time");
 		register = makingJButton("Register");
 		howManyHours = makingJTextField(fieldsize);
+		whatEmployee = makingJTextField(fieldsize);
 		
 		// Textfields og buttons til at finde ledige medarbejder
 		startWeek = makingJTextField(fieldsize);
@@ -260,52 +271,72 @@ public class Ui extends JFrame implements ActionListener {
 			getContentPane().removeAll();
 			getContentPane().setVisible(true);
 		
-//			JPanel employeeListTxtPanel = new JPanel();
-//			employeeListTxtPanel.setLayout(new BoxLayout(employeeListTxtPanel, BoxLayout.Y_AXIS));
-//			employeeListTxtPanel.add(Box.createRigidArea(new Dimension(110,5)));
-//			employeeListTxtPanel.add(searchNameOfEmployeeTxt,BorderLayout.CENTER);
-//			JPanel lab2 = new JPanel();
-//			lab2.setLayout(new BoxLayout(lab2, BoxLayout.PAGE_AXIS));
-//			lab2.add(employeeName);
-//			JPanel buttonpanelEmployees = new JPanel();
-//			buttonpanelEmployees.setMinimumSize(new Dimension(700,700));
-//			buttonpanelEmployees.setMaximumSize(new Dimension(700,700));
-//
-//			buttonpanelEmployees.setLayout(new BoxLayout(buttonpanelEmployees, BoxLayout.Y_AXIS));
-//			buttonpanelEmployees.add(searchForEmployeeButton);
-//			buttonpanelEmployees.add(mainMenu);
-//			
-//
-//			getContentPane().setLayout(new BorderLayout());
-//			getContentPane().add(employeeListTxtPanel, BorderLayout.CENTER);
-//			getContentPane().add(buttonpanelEmployees, BorderLayout.EAST);
-//			getContentPane().add(lab2, BorderLayout.WEST);
+			JPanel employeeListTxtPanel = makingJPanel(jPanelsize);
+			employeeListTxtPanel.add(searchNameOfEmployeeTxt,BorderLayout.CENTER);
+			JPanel lab2 = makingJPanel(jPanelsize);
+			lab2.setLayout(new BoxLayout(lab2, BoxLayout.PAGE_AXIS));
+			lab2.add(employeeName);
+			JPanel buttonpanelEmployees = new JPanel();
+			buttonpanelEmployees.setMinimumSize(new Dimension(700,700));
+			buttonpanelEmployees.setMaximumSize(new Dimension(700,700));
+
+			buttonpanelEmployees.setLayout(new BoxLayout(buttonpanelEmployees, BoxLayout.Y_AXIS));
+			buttonpanelEmployees.add(searchForEmployeeButton);
+			buttonpanelEmployees.add(mainMenu);
+			
+
+			getContentPane().setLayout(new BorderLayout());
+			getContentPane().add(employeeListTxtPanel, BorderLayout.CENTER);
+			getContentPane().add(buttonpanelEmployees, BorderLayout.EAST);
+			getContentPane().add(lab2, BorderLayout.WEST);
 
 		}
 		
 		if (arg0.getSource() == searchForEmployeeButton) {
 			try{
-			sh.getEmployeeByID((searchNameOfEmployeeTxt.getText()));
+			this.employee = sh.getEmployeeByID((searchNameOfEmployeeTxt.getText()));
 			
 			getContentPane().setVisible(false);
 			getContentPane().removeAll();
 			getContentPane().setVisible(true);
 			
 			mainMenuPanel = makingJPanel(jPanelsize);
-			mainMenuPanel.add(assignProjectLeader);
-			mainMenuPanel.add(iAmProjectLeader);
-			mainMenuPanel.add(addActivity);
-			mainMenuPanel.add(findActivity);
+			mainMenuPanel.add(setWorkHoursButton);
+			mainMenuPanel.add(seeWorkHoursButton);
 			mainMenuPanel.add(mainMenu);
 			
+			JPanel textPanel = makingJPanel(jPanelsize);
+			textPanel.add(workHoursTxt);
+			textPanel.add(whatProject);
+			textPanel.add(whatActivityTxt);
 			
+			
+			JPanel labelPanel = makingJPanel(jPanelsize);
+			labelPanel.add(setWorkHoursLab);
+			labelPanel.add(whatProjectLab);
+			labelPanel.add(whatActivityLab);
 			getContentPane().setLayout(new BorderLayout());
-			getContentPane().add(mainMenuPanel);
+			getContentPane().add(mainMenuPanel, BorderLayout.EAST);
+			getContentPane().add(textPanel, BorderLayout.CENTER);
+			getContentPane().add(labelPanel, BorderLayout.WEST);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			whatProject.setText(e.getMessage());
 		}
+		}
+		if(arg0.getSource() == setWorkHoursButton) {
+			try {
+				employee.setWorkHours(sh.getProjectByName(whatProject.getText()).getActivityByName(whatActivityTxt.getText()), Integer.parseInt(workHoursTxt.getText()));
+				workHoursTxt.setText("Work hours have been changed");
+			} catch (NumberFormatException e) {
+				workHoursTxt.setText("Illegal Input");
+			} catch (Exception e) {
+				whatProject.setText("Either wrong project or activity");
+			}
+		}
+		if(arg0.getSource() == seeWorkHoursButton) {
+			workHoursTxt.setText(Double.toString(employee.getWorkHours()));
 		}
 		
 	//////////////////////////////////////////////////////////////////////
@@ -572,6 +603,7 @@ public class Ui extends JFrame implements ActionListener {
 			getContentPane().removeAll();
 			getContentPane().setVisible(true);
 			JPanel textpanel = makingJPanel(jPanelsize);
+			textpanel.add(whatEmployee);
 			textpanel.add(howManyHours,BorderLayout.CENTER);
 			JPanel buttonpanelProjects = makingJPanel(jPanelsize);
 			buttonpanelProjects.setLayout(new BoxLayout(buttonpanelProjects, BoxLayout.Y_AXIS));
@@ -585,6 +617,7 @@ public class Ui extends JFrame implements ActionListener {
 		}
 		if (arg0.getSource() == register) {
 			activity.setBudgetTime(Integer.parseInt(howManyHours.getText()));
+			sh.getEmployeeByID(whatEmployee.getText()).setWorkHours(activity, Integer.parseInt(howManyHours.getText()));
 			howManyHours.setText("Time has been registered");
 		}
 		
