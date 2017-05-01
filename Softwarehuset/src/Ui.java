@@ -477,8 +477,12 @@ public class Ui extends JFrame implements ActionListener {
 		}
 		
 		if (arg0.getSource() == addEmployeeToActivityButton) {
+			try {
 			projectLeader.addEmployeeToActivity(activityNameTxt1.getText(), employeeNameTxt.getText());
 			activityNameTxt1.setText("Employee has been added to the activity");
+			} catch (OperationNotAllowedException e) {
+				activityNameTxt1.setText(e.getMessage());
+			}
 		}
 		
 		if (arg0.getSource() == findActivity) {

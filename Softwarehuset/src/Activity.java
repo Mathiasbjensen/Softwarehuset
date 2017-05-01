@@ -9,6 +9,7 @@ public class Activity {
 	private String activityName;
 	private List<Employee> activityEmployees = new ArrayList<Employee>();
 	private Project project;
+	private Softwarehuset sh;
 	
 	public Activity(int budgetTime, int start, int end, String activityName, Project project) {
 		this.budgetTime = budgetTime;
@@ -22,18 +23,16 @@ public class Activity {
 		return activityName;
 	}
 	
-	public void assignEmployee(Employee employee) throws Exception{
+	public void assignEmployee(Employee employee) throws OperationNotAllowedException{
 
-		
 		if(!activityEmployees.contains(employee)) {
 		activityEmployees.add(employee);
 		employee.updateListOfActivity(this);
 		}
 		
-		else {
+		else if (activityEmployees.contains(employee)){
 			throw new OperationNotAllowedException("Employee is already working on this activity", "assign employee to activity");
 		}
-
 		
 	}
 	public String[] getAssignedEmployees() {

@@ -29,8 +29,9 @@ public class Project {
 	
 	// Assigns an employee to a project leader
 	public void assignProjectLeader(String employeeID) throws OperationNotAllowedException {
-		Employee employee = sh.getEmployeeByID(employeeID);
+		
 		try {
+			Employee employee = sh.getEmployeeByID(employeeID);
 			if(sh.getEmployees().contains(employee)) {
 
 			ProjectLeader projectLeader = new ProjectLeader(employee, sh, this);
@@ -60,8 +61,14 @@ public class Project {
 		if (!activities.contains(activity)) {
 		activities.add(activity);
 	}
-		else { throw new OperationNotAllowedException("That activity name is already taken.", "Add activity.");
-		
+		else if (!activities.contains(activity)) { 
+			throw new OperationNotAllowedException("That activity name is already taken.", "Add activity.");
+		}
+		else if ((start > 0 && start < 53) || (end > 0 && end < 53)) {
+			throw new OperationNotAllowedException("The start and end weeks have to be between 1 and 52.", "add activity");
+		}
+		else if (budgetTime < 0) {
+			throw new OperationNotAllowedException("BudgetTime has to be positive","add activity");
 		}
 		
 		
@@ -75,7 +82,7 @@ public class Project {
 	        } 
 	        
 		}
-		return null;
+		throw new OperationNotAllowedException("No activity with that name", "Get activity by name");
 
 
 		}

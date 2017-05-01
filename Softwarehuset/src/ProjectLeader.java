@@ -5,6 +5,7 @@ public class ProjectLeader {
 	
 	Project project;
 	Softwarehuset sh;
+	
 	public ProjectLeader(Employee employee, Softwarehuset sh, Project project) {
 		this.project = project;
 		this.sh = sh;
@@ -15,7 +16,6 @@ public class ProjectLeader {
 		try {
 			project.addActivity(budgetTime, start, end, activityName);
 		} catch (OperationNotAllowedException e) {
-			e.printStackTrace();
 		}
 
 	}
@@ -23,16 +23,24 @@ public class ProjectLeader {
 		return project.getRemainingTime();
 	}
 	
-	public void addEmployeeToActivity(String activity, String employee) {
+	public void addEmployeeToActivity(String activity, String employee) throws OperationNotAllowedException {
 		
-		try {
-			project.getActivityByName(activity).assignEmployee(sh.getEmployeeByID(employee));
-		} catch (Exception e) {
-			
-		}
+			try {
+				project.getActivityByName(activity).assignEmployee(sh.getEmployeeByID(employee));
+			} catch (Exception e) {
+				throw new OperationNotAllowedException(e.getMessage(), "add employee to activity");
+				
+			}
+		} 
+
 		
-	}
-	public ArrayList<Employee> findFreeEmployees(int weekStart, int weekEnd) throws Exception {
+	//		else if (!sh.getEmployees().contains(employee)) {
+	//			throw new OperationNotAllowedException("Employee does not exist", "assign employee to activity");
+	//		}
+
+		
+	
+	public ArrayList<Employee> findFreeEmployees(int weekStart, int weekEnd) throws OperationNotAllowedException {
 		ArrayList<Employee> free = new ArrayList<Employee>();	
 		free = sh.getFreeEmployees(weekStart, weekEnd);
 		if (free.isEmpty()) {

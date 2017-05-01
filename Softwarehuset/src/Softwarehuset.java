@@ -122,13 +122,13 @@ public class Softwarehuset {
 		return x;
 	}
 	
-	public Employee getEmployeeByID(String ID){
+	public Employee getEmployeeByID(String ID) throws OperationNotAllowedException{
 	for (int i = 0; i < employees.size();i++) {
         if(employees.get(i).getID().equals(ID)) {
             return employees.get(i);
         }  
 	}
-	return null;
+	throw new OperationNotAllowedException("No employee with that name", "Get employee by name");
 	}
 
 
