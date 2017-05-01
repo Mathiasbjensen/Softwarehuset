@@ -22,7 +22,8 @@ public class Activity {
 		return activityName;
 	}
 	
-	public void assignEmployee(Employee employee) throws OperationNotAllowedException{
+	public void assignEmployee(Employee employee) throws Exception{
+
 		
 		if(!activityEmployees.contains(employee)) {
 		activityEmployees.add(employee);
@@ -32,10 +33,15 @@ public class Activity {
 		else {
 			throw new OperationNotAllowedException("Employee is already working on this activity", "assign employee to activity");
 		}
+
 		
 	}
-	public List<Employee> getAssignedEmployees() {
-		return activityEmployees;
+	public String[] getAssignedEmployees() {
+		String[] nameOfEmployees = new String[activityEmployees.size()];
+		for (int i = 0; i < activityEmployees.size(); i++) {
+			nameOfEmployees[i] = (activityEmployees.get(i).getID());
+		}
+		return nameOfEmployees;
 	}
 	public int getStart() {
 		return start;

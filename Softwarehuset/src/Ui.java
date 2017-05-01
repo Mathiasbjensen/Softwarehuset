@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -12,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JList;
 
 public class Ui extends JFrame implements ActionListener {
 	
@@ -20,12 +23,14 @@ public class Ui extends JFrame implements ActionListener {
 	private static JButton projectButton, addProject, addEmployee, employeeList, okButton, searchProjects, 
 	mainMenu, addEmployeeButton, searchForEmployeeButton, addActivityButton, 
 	assignProjectLeader, addActivity, findActivity, iAmProjectLeader, setWorkHoursButton, addEmployeeToActivity,
-	 getReport, employeesConnectedToActivity, requestHelp, projectLeaderButtonFinal, searchActivity, addEmployeeToActivityButton; 
-	private static JTextField whatProject, expectedTimeTxt, nameOfEmployee, searchNameOfEmployeeTxt, whatActivity, employeeNameTxt, activityNameTxt1;
 
+	 projectLeaderButtonFinal, searchActivity, getReport, employeesConnectedToActivity, registerTime, register, addEmployeeToActivityButton; 
+	private static JTextField whatProject, expectedTimeTxt, nameOfEmployee, searchNameOfEmployeeTxt, 
+	whatActivity, howManyHours, employeeNameTxt, activityNameTxt1;
+	private static JList listOfEmployees; 
 	private static Softwarehuset sh = new Softwarehuset();
 	private static Project project;
-	private JLabel projectNameLab, expectedTimeLab, employeeName, activityName, addEmployeeToActivityEmployeeNameLabel, addEmployeeToActivityNameLabel;
+	private JLabel projectNameLab, expectedTimeLab, employeeName, activityName,  addEmployeeToActivityEmployeeNameLabel, addEmployeeToActivityNameLabel;
 	private Dimension fieldsize, panelsize, txtsize, jPanelsize;
 	private JPanel mainMenuPanel, addActivityPanelTxt, addEmployeeToActivityPanelTxt, addEmployeeToActivityLabelPanel, addEmployeeToActivityButtonPanel;
 	private JTextField budgetTimeTxt;
@@ -38,7 +43,7 @@ public class Ui extends JFrame implements ActionListener {
 	private JLabel startTimeLabel;
 	private JLabel endTimeLabel;
 	private JPanel addActivityPanelButton;
-	private static Activity activity;
+	private Activity activity;
 	private ProjectLeader projectLeader;
 
 
@@ -126,8 +131,10 @@ public class Ui extends JFrame implements ActionListener {
 		activityName = makingJLabel("Name of activity: ", panelsize);
 		
 		// Buttons til Activity klassen
-		employeesConnectedToActivity = makingJButton("Get List of employees working on this activity");
-		requestHelp = makingJButton("Request help");
+		employeesConnectedToActivity = makingJButton("Assigned employees");
+		registerTime = makingJButton("Register Time");
+		register = makingJButton("Register");
+		howManyHours = makingJTextField(fieldsize);
 		
 
 		
@@ -349,8 +356,9 @@ public class Ui extends JFrame implements ActionListener {
 				nameOfEmployee.setText(e.getMessage());
 			}
 		}
-		
-		if (arg0.getSource() == iAmProjectLeader) {
+		// Making sure there is a project leader assigned.
+		if (arg0.getSource() == iAmProjectLeader && project.getProjectLeader() != null) {
+			
 				getContentPane().setVisible(false);
 				getContentPane().removeAll();
 				getContentPane().setVisible(true);
@@ -369,6 +377,8 @@ public class Ui extends JFrame implements ActionListener {
 				getContentPane().setLayout(new BorderLayout());
 //				getContentPane().add(textpanel, BorderLayout.CENTER);
 				getContentPane().add(buttonpanelProjectLeader, BorderLayout.CENTER);
+			
+			
 				
 				
 			// Add activity 1
@@ -391,14 +401,18 @@ public class Ui extends JFrame implements ActionListener {
 			
 			
 			addActivityLabels = makingJPanel(jPanelsize);
-			activityNameLabel = makingJLabel("Name", panelsize);
-			budgetTimeLabel = makingJLabel("Budget Time", panelsize);
-			startTimeLabel = makingJLabel("Beginning week", panelsize);
-			endTimeLabel = makingJLabel("End week", panelsize);
+			activityNameLabel = makingJLabel("Name:", panelsize);
+			budgetTimeLabel = makingJLabel("Budget Time:", panelsize);
+			startTimeLabel = makingJLabel("Beginning week:", panelsize);
+			endTimeLabel = makingJLabel("End week:", panelsize);
 			
+			addActivityLabels.setLayout(new BoxLayout(addActivityLabels, BoxLayout.PAGE_AXIS));
 			addActivityLabels.add(activityNameLabel);
+			addActivityLabels.add(Box.createRigidArea(new Dimension( 200, 18)));
 			addActivityLabels.add(budgetTimeLabel);
+			addActivityLabels.add(Box.createRigidArea(new Dimension( 200, 18)));
 			addActivityLabels.add(startTimeLabel);
+			addActivityLabels.add(Box.createRigidArea(new Dimension( 200, 18)));
 			addActivityLabels.add(endTimeLabel);
 			
 			addActivityPanelButton = makingJPanel(jPanelsize);
@@ -417,6 +431,7 @@ public class Ui extends JFrame implements ActionListener {
 			try {
 			project.addActivity(Integer.parseInt(budgetTimeTxt.getText()), Integer.parseInt(startTimeTxt.getText()), Integer.parseInt(endTimeTxt.getText()), 
 					activityNameTxt.getText());
+			activityNameTxt.setText("Activity has been added");
 			
 			} catch (OperationNotAllowedException e) {
 					activityNameTxt.setText(e.getMessage());
@@ -490,19 +505,65 @@ public class Ui extends JFrame implements ActionListener {
 			
 		}
 		if (arg0.getSource() == searchActivity) {
+			try {
+				this.activity = project.getActivityByName(whatActivity.getText());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				whatActivity.setText("No activity with that name");
+			}
 			getContentPane().setVisible(false);
 			getContentPane().removeAll();
 			getContentPane().setVisible(true);
 			
 			JPanel buttonPanelActivity = makingJPanel(jPanelsize);
-			buttonPanelActivity.add(assignProjectLeader);
-			buttonPanelActivity.add(iAmProjectLeader);
-			buttonPanelActivity.add(findActivity);
+			buttonPanelActivity.add(employeesConnectedToActivity);
+			buttonPanelActivity.add(registerTime);
+//			buttonPanelActivity.add();
 			buttonPanelActivity.add(mainMenu);
 			
 			
 			getContentPane().setLayout(new BorderLayout());
-			getContentPane().add(mainMenuPanel);
+			getContentPane().add(buttonPanelActivity);
+		}
+		if (arg0.getSource() == registerTime) {
+			getContentPane().setVisible(false);
+			getContentPane().removeAll();
+			getContentPane().setVisible(true);
+			JPanel textpanel = makingJPanel(jPanelsize);
+			textpanel.add(howManyHours,BorderLayout.CENTER);
+			JPanel buttonpanelProjects = makingJPanel(jPanelsize);
+			buttonpanelProjects.setLayout(new BoxLayout(buttonpanelProjects, BoxLayout.Y_AXIS));
+			buttonpanelProjects.add(register);
+			buttonpanelProjects.add(mainMenu);
+			
+			getContentPane().setLayout(new BorderLayout());
+			getContentPane().add(textpanel, BorderLayout.CENTER);
+			getContentPane().add(buttonpanelProjects, BorderLayout.EAST);
+			
+		}
+		if (arg0.getSource() == register) {
+			activity.setBudgetTime(Integer.parseInt(howManyHours.getText()));
+			howManyHours.setText("Time has been registered");
+		}
+		
+		
+		if (arg0.getSource() == employeesConnectedToActivity) {
+			getContentPane().setVisible(false);
+			getContentPane().removeAll();
+			getContentPane().setVisible(true);
+			String[] employees = activity.getAssignedEmployees();
+			System.out.println(Arrays.toString(employees));
+			listOfEmployees = new JList<String>(employees);
+			listOfEmployees.setMaximumSize(new Dimension(50,200));
+			JPanel listPanel = makingJPanel(jPanelsize);
+			listPanel.add(listOfEmployees);
+			JPanel buttonPanel = makingJPanel(jPanelsize);
+			buttonPanel.add(mainMenu);
+			getContentPane().setLayout(new BorderLayout());
+			getContentPane().add(listPanel);
+			getContentPane().add(buttonPanel,BorderLayout.EAST);
+			
+			
 		}
 		}
 		
@@ -548,7 +609,7 @@ public class Ui extends JFrame implements ActionListener {
 	public void menuReset() {getContentPane().setLayout(new BorderLayout());
 		
 		// Creating a project button
-		projectButton = makingJButton("List of projects");
+		projectButton = makingJButton("Search for a Project");
 		
 		JPanel buttonpanel = new JPanel();
 		buttonpanel.setMinimumSize(new Dimension(700,700));
@@ -604,6 +665,17 @@ public class Ui extends JFrame implements ActionListener {
 			sh.addProject("skod", 123, sh);
 			sh.addEmployee("hans");
 			sh.addEmployee("anne");
+
+			sh.addEmployee("abcd");
+			sh.addEmployee("lort");
+			sh.addEmployee("skid");
+			sh.getProjectByName("skod").addActivity(123, 32, 34, "test");
+			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("hans"));
+			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("abcd"));
+			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("lort"));
+			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("skid"));
+			sh.addEmployee("anne");
+
 		} catch (Exception e) {
 		}
 	
