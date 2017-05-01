@@ -63,7 +63,7 @@ public class Ui extends JFrame implements ActionListener {
 		getContentPane().setLayout(new BorderLayout());
 		
 		// Creating a project button
-		projectButton = makingJButton("List of projects");
+		projectButton = makingJButton("Search for a project");
 		
 		JPanel buttonpanel = new JPanel();
 		buttonpanel.setMinimumSize(new Dimension(700,700));
