@@ -23,10 +23,10 @@ public class Ui extends JFrame implements ActionListener {
 	private static JButton projectButton, addProject, addEmployee, employeeList, okButton, searchProjects, 
 	mainMenu, addEmployeeButton, searchForEmployeeButton, addActivityButton, 
 	assignProjectLeader, addActivity, findActivity, iAmProjectLeader, setWorkHoursButton, addEmployeeToActivity,
-
-	 projectLeaderButtonFinal, searchActivity, getReport, employeesConnectedToActivity, registerTime, register, addEmployeeToActivityButton; 
+	 projectLeaderButtonFinal, searchActivity, getFreeEmployees, employeesConnectedToActivity, registerTime, 
+	 register, addEmployeeToActivityButton, searchFreeEmployees; 
 	private static JTextField whatProject, expectedTimeTxt, nameOfEmployee, searchNameOfEmployeeTxt, 
-	whatActivity, howManyHours, employeeNameTxt, activityNameTxt1;
+	whatActivity, howManyHours, employeeNameTxt, activityNameTxt1, startWeek, endWeek;
 	private static JList listOfEmployees; 
 	private static Softwarehuset sh = new Softwarehuset();
 	private Project project;
@@ -123,7 +123,7 @@ public class Ui extends JFrame implements ActionListener {
 		// Buttons til Project Leader klassen
 		addActivity = makingJButton("Add an activity to project");
 		addEmployeeToActivity = makingJButton("Add employee to an activity");
-		getReport = makingJButton("Get report of project");
+		getFreeEmployees = makingJButton("Find free employees");
 
 		projectLeaderButtonFinal = makingJButton("Assign");
 		whatActivity = makingJTextField(fieldsize);
@@ -136,7 +136,10 @@ public class Ui extends JFrame implements ActionListener {
 		register = makingJButton("Register");
 		howManyHours = makingJTextField(fieldsize);
 		
-
+		// Textfields og buttons til at finde ledige medarbejder
+		startWeek = makingJTextField(fieldsize);
+		endWeek = makingJTextField(fieldsize);
+		searchFreeEmployees = makingJButton("Search");
 		
 	}
 	
@@ -369,7 +372,7 @@ public class Ui extends JFrame implements ActionListener {
 				buttonpanelProjectLeader.setLayout(new BoxLayout(buttonpanelProjectLeader, BoxLayout.Y_AXIS));
 				buttonpanelProjectLeader.add(addActivity);
 				buttonpanelProjectLeader.add(addEmployeeToActivity);
-				buttonpanelProjectLeader.add(getReport);
+				buttonpanelProjectLeader.add(getFreeEmployees);
 				
 				buttonpanelProjectLeader.add(mainMenu);
 				
@@ -468,8 +471,6 @@ public class Ui extends JFrame implements ActionListener {
 		if (arg0.getSource() == addEmployeeToActivityButton) {
 			projectLeader.addEmployeeToActivity(activityNameTxt1.getText(), employeeNameTxt.getText());
 			activityNameTxt1.setText("Employee has been added to the activity");
-			
-			
 		}
 		
 		if (arg0.getSource() == findActivity) {
@@ -493,7 +494,48 @@ public class Ui extends JFrame implements ActionListener {
 			
 		}
 		//FÅ REPORT!
-		if (arg0.getSource() == getReport) {
+		if (arg0.getSource() == getFreeEmployees) {
+			getContentPane().setVisible(false);
+			getContentPane().removeAll();
+			getContentPane().setVisible(true);
+			
+			JPanel textpanel = makingJPanel(jPanelsize);
+			textpanel.add(startWeek,BorderLayout.CENTER);
+			textpanel.add(endWeek,BorderLayout.CENTER);
+			JPanel buttonpanelProjects = makingJPanel(jPanelsize);
+			buttonpanelProjects.setLayout(new BoxLayout(buttonpanelProjects, BoxLayout.Y_AXIS));
+			buttonpanelProjects.add(searchFreeEmployees);
+			buttonpanelProjects.add(mainMenu);
+			
+			getContentPane().setLayout(new BorderLayout());
+			getContentPane().add(textpanel, BorderLayout.WEST);
+			getContentPane().add(buttonpanelProjects, BorderLayout.EAST);
+			startWeek.setText("First week of activity");
+			endWeek.setText("Last week of activity");
+		}
+		if (arg0.getSource() == searchFreeEmployees) {
+			ArrayList<Employee> free = new ArrayList<Employee>();
+			
+			try {
+				free = projectLeader.findFreeEmployees(Integer.parseInt(startWeek.getText()), Integer.parseInt(endWeek.getText()));
+				String[] employees = new String[free.size()];
+				for(int i = 0; i < free.size(); i++) {
+					employees[i] = free.get(i).getID();
+				}
+				listOfEmployees = new JList<String>(employees);
+				listOfEmployees.setMaximumSize(new Dimension(50,200));
+				JPanel listPanel = makingJPanel(jPanelsize);
+				listPanel.add(listOfEmployees);
+				getContentPane().setVisible(false);
+				getContentPane().add(listPanel, BorderLayout.CENTER);
+				getContentPane().setVisible(true);
+				
+				
+			} catch (NumberFormatException e) {
+				startWeek.setText("Illegal input.");
+			} catch (Exception e) {
+				startWeek.setText("No free employees these weeks.");
+			}
 			
 		}
 		if (arg0.getSource() == searchActivity) {
@@ -544,7 +586,6 @@ public class Ui extends JFrame implements ActionListener {
 			getContentPane().removeAll();
 			getContentPane().setVisible(true);
 			String[] employees = activity.getAssignedEmployees();
-			System.out.println(Arrays.toString(employees));
 			listOfEmployees = new JList<String>(employees);
 			listOfEmployees.setMaximumSize(new Dimension(50,200));
 			JPanel listPanel = makingJPanel(jPanelsize);
@@ -661,10 +702,10 @@ public class Ui extends JFrame implements ActionListener {
 			sh.addEmployee("lort");
 			sh.addEmployee("skid");
 			sh.getProjectByName("skod").addActivity(123, 32, 34, "test");
-			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("hans"));
-			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("abcd"));
-			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("lort"));
-			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("skid"));
+//			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("hans"));
+//			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("abcd"));
+//			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("lort"));
+//			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("skid"));
 			sh.addEmployee("anne");
 
 		} catch (Exception e) {

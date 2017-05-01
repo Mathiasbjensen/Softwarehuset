@@ -6,10 +6,10 @@ public class Softwarehuset {
 
 
 	private ArrayList<Employee> employees = new ArrayList<Employee>();
-	private ArrayList<ProjectLeader> projectLeaders = new ArrayList<ProjectLeader>();
+//	private ArrayList<ProjectLeader> projectLeaders = new ArrayList<ProjectLeader>();
 	private ArrayList<Project> projects = new ArrayList<Project>();
 //	private List <Employee> freeEmployees = new ArrayList<Employee>();
-	private ArrayList[] freeEmployees = new ArrayList[52];
+	private ArrayList<Employee>[] freeEmployees = new ArrayList[52];
 
 	DateServer dateserver = new DateServer();
 	private int runningNumber = 0;
@@ -42,15 +42,9 @@ public class Softwarehuset {
 	}
 	//Revurder eventuelt saa man kan have start og slut som parameter
 	// 
-	public ArrayList getFreeEmployees(int weekStart, int weekEnd)throws Exception {
+	public ArrayList<Employee> getFreeEmployees(int weekStart, int weekEnd) {
 		boolean isFree = false;
 		ArrayList<Employee> free = new ArrayList<Employee>();	
-		for (int i = weekStart-1; i <= weekEnd-1; i++) {
-		if(freeEmployees[i].size() == 0 ) {
-			throw new OperationNotAllowedException("No free employees this week", "get free employees");
-		}
-		
-	}
 		for (int j = 0; j < freeEmployees[weekStart].size(); j++) {
 			Employee hans = (Employee) freeEmployees[weekStart].get(j);
 			for (int i = weekStart+1; i <=weekEnd; i++) {

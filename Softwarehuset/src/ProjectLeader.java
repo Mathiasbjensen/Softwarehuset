@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class ProjectLeader {
@@ -29,6 +30,14 @@ public class ProjectLeader {
 			
 		}
 		
+	}
+	public ArrayList<Employee> findFreeEmployees(int weekStart, int weekEnd) throws Exception {
+		ArrayList<Employee> free = new ArrayList<Employee>();	
+		free = sh.getFreeEmployees(weekStart, weekEnd);
+		if (free.isEmpty()) {
+			throw new OperationNotAllowedException("No free employees these weeks.","Find free employees");
+		}
+		return free;
 	}
 	
 
