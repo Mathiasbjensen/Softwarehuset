@@ -147,5 +147,41 @@ public class BlackBoxTest {
 				
 	}
 	
+	@Test
+	public void useCase2Test() throws Exception {
+		
+		// A - Adding a project with valid parameters
+		assertEquals(sh.getProjects().size(),2);
+		try {
+			sh.addProject("Some Project", 500, sh);
+			assertEquals(sh.getProjects().size(),3);
+			
+		}catch(Exception e) {
+			fail("");
+		}
+	
+	// B - Trying to add a project with negative expected time 
+	
+	try {
+		sh.addProject("Some other project", -500, sh);
+		fail("");
+		
+	}catch(Exception e) {
+		assertEquals("Expected time has to be positive", e.getMessage());
+		assertEquals(sh.getProjects().size(),3);
+	}
+	
+	// C - Trying to add a project with a name already in use
+	try {
+		sh.addProject("Some Project", 500, sh);
+		fail("");
+	}catch(Exception e) {
+		assertEquals("A project with that name already exists.", e.getMessage());
+		assertEquals(sh.getProjects().size(),3);
+		
+	}
+	
+	}
+	
 
 }

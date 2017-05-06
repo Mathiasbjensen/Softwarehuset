@@ -78,7 +78,11 @@ public class Softwarehuset {
 			}
 		}
 
+		if(expectedTime < 0) {
+			throw new OperationNotAllowedException("Expected time has to be positive", "Add project");
+		}
 
+		
 		Project newProject = new Project(projectName, expectedTime, softwarehuset);
 		projects.add(newProject);
 
