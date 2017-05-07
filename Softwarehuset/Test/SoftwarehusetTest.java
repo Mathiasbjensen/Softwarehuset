@@ -40,7 +40,6 @@ public class SoftwarehusetTest {
 			sh.addProject("second project", 50, sh);
 		} catch (OperationNotAllowedException e) {
 			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
 			fail("Operation exception should not have been thrown");
 			
 		}
@@ -57,7 +56,6 @@ public class SoftwarehusetTest {
 			sh.addProject("first project", 100, sh);
 			fail("Operation exception should have been thrown");
 		} catch (OperationNotAllowedException e){
-			System.out.println(e.getMessage());
 			assertEquals("A project with that name already exists.",e.getMessage());
 			assertEquals("Add project",e.getOperation());
 		}
