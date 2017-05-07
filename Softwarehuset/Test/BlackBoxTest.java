@@ -1,5 +1,5 @@
 import static org.junit.Assert.*;
-
+import Program.*;
 import java.util.Arrays;
 
 import org.junit.Before;
@@ -50,8 +50,10 @@ public class BlackBoxTest {
 		// C - Invalid employee name and invalid activity name
 		
 		try {
-			invalidActivity = project.getActivityByName("BørneDag");
-			projectLeader.addEmployeeToActivity("BørneDag", "Kurt");
+
+
+			invalidActivity = project.getActivityByName("BÃ¸rneDag");
+			projectLeader.addEmployeeToActivity("BÃ¸rneDag", "Kurt");
 			fail("");
 		} catch(Exception e) {
 			assertEquals("No activity with that name", e.getMessage());
@@ -60,7 +62,8 @@ public class BlackBoxTest {
 		
 		//D - Valid employee name and invalid activity name
 		try {
-			projectLeader.addEmployeeToActivity("Fødselsdag", "mads");
+
+			projectLeader.addEmployeeToActivity("Fï¿½dselsdag", "mads");
 			fail("");
 		} catch(Exception e) {
 			assertEquals("No activity with that name", e.getMessage());

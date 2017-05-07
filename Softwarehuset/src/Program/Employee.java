@@ -1,4 +1,6 @@
+package Program;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -32,7 +34,6 @@ public class Employee {
 	}
 
 	public void isEmployeeFree(Activity activity) throws Exception{
-
 		//Checking if the employee has enough weeks available to be assigned to the activity.
 		for(int i = activity.getStart()-1; i <= activity.getEnd()-1; i++) {
 			if(weekCalendar[i].contains(activity) ) {
@@ -42,18 +43,21 @@ public class Employee {
 				throw new OperationNotAllowedException("The employee is already assigned to 20 other activities in week: "+i,"add Assigned Activity");
 			}
 		}
+		
 	}
-
 	public void updateListOfActivity(Activity activity) {
+		
 		// Adding the activity to the week calendar.
 		for(int i = activity.getStart()-1; i <= activity.getEnd()-1; i++) {
 			weekCalendar[i].add(activity);
+			
 			// Removing the employee from being "free" if he is working on 20 activities.
 			if (weekCalendar[i].size() == 20) {
 
 				sh.removeFreeEmployee(this, i, i);
 			}
 		}
+		
 
 
 	}
