@@ -4,7 +4,6 @@ import java.util.List;
 
 public class Project {
 
-	//ID should be without year.
 	private String ID;
 	private String projectName;
 	private double expectedTime;
@@ -46,9 +45,6 @@ public class Project {
 	}
 	
 
-	
-	// CONSIDER GIVING ACTIVITY A NAME???????
-
 
 	public void addActivity(int budgetTime, int start, int end, String activityName) throws OperationNotAllowedException {
 		Activity activity = new Activity(budgetTime, start, end, activityName, this);
@@ -65,11 +61,9 @@ public class Project {
 		if (checker == false && (start > 0 && start < 53) && (end > 0 && end < 53 ) && budgetTime > 0){
 		activities.add(activity);
 	}
-//		else if (activities.contains(activity)) { 
-//			throw new OperationNotAllowedException("That activity name is already taken.", "Add activity.");
-//		}
+
 		else if ((start < 0 || start > 53) || (end < 0 || end > 53)) {
-			throw new OperationNotAllowedException("The start and end weeks have to be between 1 and 52.", "add activity");
+			throw new OperationNotAllowedException("The start and end weeks has to be valid", "add activity");
 		}
 		else if (budgetTime < 0) {
 			throw new OperationNotAllowedException("BudgetTime has to be positive","add activity");
@@ -93,9 +87,9 @@ public class Project {
 		this.expectedTime = expectedTime + i;
 	}
 	public double getRemainingTime() {
-		int remainingtime = 0;
+		double remainingtime = 0;
 		for (int i = 0; i < activities.size();i++) {
-			expectedTime = expectedTime + activities.get(i).getETA();
+			remainingtime = remainingtime + activities.get(i).getETA();
 		}
 		return remainingtime;
 	}

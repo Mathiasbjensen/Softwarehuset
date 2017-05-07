@@ -1,18 +1,15 @@
 import static org.junit.Assert.*;
-
+import Program.*;
 import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import Program.Activity;
-import Program.Project;
-import Program.Softwarehuset;
-
 public class BlackBoxTest {
 	Softwarehuset sh = new Softwarehuset();
 	Project project, project2;
 	Activity activity, invalidActivity, invalidActivity2;
+	ProjectLeader projectLeader, projectLeader2;
 	
 	@Before
 	public void setUp() throws Exception{
@@ -26,8 +23,10 @@ public class BlackBoxTest {
 		project.addActivity(30, 1, 3, "Kursus");
 		activity = project.getActivityByName("Kursus");
 		project2 = sh.getProjectByName("projectTestTwo");
-		
-		project.assignProjectLeader("anne");
+		project2.assignProjectLeader("anne");
+		project.assignProjectLeader("abcd");
+		projectLeader2 = project2.getProjectLeader();
+		projectLeader = project.getProjectLeader();
 	}
 	
 	@Test
@@ -39,7 +38,7 @@ public class BlackBoxTest {
 		// B - Invalid employee name and valid activity name
 		
 		try {
-			activity.assignEmployee(sh.getEmployeeByID("Tina"));
+			projectLeader.addEmployeeToActivity("Kursus", "Tina");
 			fail("");
 		} catch(Exception e) {			
 			assertEquals("No employee with that name", e.getMessage());
@@ -51,8 +50,10 @@ public class BlackBoxTest {
 		// C - Invalid employee name and invalid activity name
 		
 		try {
-			invalidActivity = project.getActivityByName("B�rneDag");
-			invalidActivity.assignEmployee(sh.getEmployeeByID("Kurt"));
+
+
+			invalidActivity = project.getActivityByName("BørneDag");
+			projectLeader.addEmployeeToActivity("BørneDag", "Kurt");
 			fail("");
 		} catch(Exception e) {
 			assertEquals("No activity with that name", e.getMessage());
@@ -61,8 +62,8 @@ public class BlackBoxTest {
 		
 		//D - Valid employee name and invalid activity name
 		try {
-			invalidActivity2 = project.getActivityByName("F�dselsdag");
-			invalidActivity2.assignEmployee(sh.getEmployeeByID("mads"));
+
+			projectLeader.addEmployeeToActivity("F�dselsdag", "mads");
 			fail("");
 		} catch(Exception e) {
 			assertEquals("No activity with that name", e.getMessage());
@@ -71,7 +72,7 @@ public class BlackBoxTest {
 		
 		// A - Employee name and Activity name are both valid
 				try {
-				activity.assignEmployee(sh.getEmployeeByID("hans"));
+				projectLeader.addEmployeeToActivity("Kursus", "hans");
 				assertEquals("hans",activity.getAssignedEmployees()[0]);
 				assertEquals(1,activity.getAssignedEmployees().length);
 				} catch (Exception e) {
@@ -81,7 +82,7 @@ public class BlackBoxTest {
 		// E - Employee name and activity are valid but employee is already working on that activity
 				
 				try {
-					activity.assignEmployee(sh.getEmployeeByID("hans"));
+					projectLeader.addEmployeeToActivity("Kursus", "hans");
 					fail("");
 				} catch (Exception e) {
 					assertEquals("Employee is already working on this activity", e.getMessage());
@@ -96,7 +97,7 @@ public class BlackBoxTest {
 		
 		// A - All 4 parameters are valid
 		try {
-			project2.addActivity(150, 5, 10, "GUI");
+			projectLeader2.addActivity(150, 5, 10, "GUI");
 			assertEquals(project2.getActivities().size(),1);
 			
 			
@@ -107,7 +108,7 @@ public class BlackBoxTest {
 		
 		// B - Negative Budget Time
 		try {
-			project2.addActivity(-150, 1, 2, "abe");
+			project2.addActivity(-150, 1, 2, "Programming");
 			fail("");
 		} catch (Exception e) {
 			assertEquals("BudgetTime has to be positive", e.getMessage());
@@ -116,10 +117,10 @@ public class BlackBoxTest {
 		}
 		// C - Negative start week and a too big end week.
 		try {
-			project2.addActivity(150, -5, 55, "another GUI");
+			project2.addActivity(150, -5, 55, "FireAwarenessWeek");
 			fail("");
 		} catch (Exception e) {
-			assertEquals("The start and end weeks have to be between 1 and 52.", e.getMessage());
+			assertEquals("The start and end weeks has to be valid", e.getMessage());
 			assertEquals(project2.getActivities().size(), 1);
 			
 		}
@@ -127,10 +128,10 @@ public class BlackBoxTest {
 		// D - Too big start week and a negative end week
 		
 		try {
-			project2.addActivity(150, 55, -5, "another GUI");
+			project2.addActivity(150, 55, -5, "CodeWeek");
 			fail("");
 		} catch (Exception e) {
-			assertEquals("The start and end weeks have to be between 1 and 52.", e.getMessage());
+			assertEquals("The start and end weeks has to be valid", e.getMessage());
 			assertEquals(project2.getActivities().size(), 1);
 		}
 		
@@ -142,7 +143,7 @@ public class BlackBoxTest {
 			fail("");
 		} catch (Exception e) {
 			assertEquals("That activity name is already taken.", e.getMessage());
-//			assertEquals(project2.getActivities().size(), 1);
+
 			
 			
 		
@@ -152,7 +153,7 @@ public class BlackBoxTest {
 	}
 	
 	@Test
-	public void useCase2Test() throws Exception {
+	public void useCaseAddProjectTest() throws Exception {
 		
 		// A - Adding a project with valid parameters
 		assertEquals(sh.getProjects().size(),2);

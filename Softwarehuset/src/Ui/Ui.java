@@ -318,7 +318,6 @@ public class Ui extends JFrame implements ActionListener {
 			getContentPane().add(labelPanel, BorderLayout.WEST);
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			whatProject.setText(e.getMessage());
 		}
 		}

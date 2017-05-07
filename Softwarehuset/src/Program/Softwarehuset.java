@@ -7,7 +7,6 @@ public class Softwarehuset {
 
 
 	private ArrayList<Employee> employees = new ArrayList<Employee>();
-	//	private ArrayList<ProjectLeader> projectLeaders = new ArrayList<ProjectLeader>();
 	private ArrayList<Project> projects = new ArrayList<Project>();
 	private ArrayList<Employee>[] freeEmployees = new ArrayList[52];
 
@@ -23,7 +22,7 @@ public class Softwarehuset {
 
 
 	public void addEmployee(String ID) throws OperationNotAllowedException{
-		if(ID.length()== 4){ //1
+		if(ID.length()== 4){ 
 
 			Employee newEmployee = new Employee(ID, this);
 			employees.add(newEmployee);
@@ -40,8 +39,7 @@ public class Softwarehuset {
 		return employees;
 
 	}
-	//Revurder eventuelt saa man kan have start og slut som parameter
-	// 
+	
 	public ArrayList<Employee> getFreeEmployees(int weekStart, int weekEnd) {
 		boolean isFree = false;
 		ArrayList<Employee> free = new ArrayList<Employee>();	
@@ -68,12 +66,9 @@ public class Softwarehuset {
 		}
 	}
 
-	//public ArrayList getFreeEmployee
-
 	public void addProject(String projectName, int expectedTime, Softwarehuset softwarehuset) throws Exception {
 
 		for(int i = 0; i < projects.size(); i++) {
-
 			if(projects.get(i).getProjectName().equals(projectName)) {
 				throw new OperationNotAllowedException("A project with that name already exists.","Add project");
 			}
