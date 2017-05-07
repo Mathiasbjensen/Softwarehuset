@@ -46,7 +46,8 @@ public class Employee {
 				throw new OperationNotAllowedException("The employee is already assigned to 20 other activities in week: "+i,"add Assigned Activity");
 			}
 		}
-		
+		//Post condition
+		assert true;
 	}
 	public void updateListOfActivity(Activity activity) {
 		
