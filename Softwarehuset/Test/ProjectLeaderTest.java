@@ -1,5 +1,5 @@
 import static org.junit.Assert.*;
-
+import Program.*;
 import org.junit.Before;
 import org.junit.Test;
 
