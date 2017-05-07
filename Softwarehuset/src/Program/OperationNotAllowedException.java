@@ -1,3 +1,4 @@
+package Program;
 public class OperationNotAllowedException extends Exception {
 
 	private String operation;

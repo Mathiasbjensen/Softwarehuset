@@ -5,6 +5,10 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
+import Program.Activity;
+import Program.Project;
+import Program.Softwarehuset;
+
 public class BlackBoxTest {
 	Softwarehuset sh = new Softwarehuset();
 	Project project, project2;
@@ -47,7 +51,7 @@ public class BlackBoxTest {
 		// C - Invalid employee name and invalid activity name
 		
 		try {
-			invalidActivity = project.getActivityByName("BørneDag");
+			invalidActivity = project.getActivityByName("Bï¿½rneDag");
 			invalidActivity.assignEmployee(sh.getEmployeeByID("Kurt"));
 			fail("");
 		} catch(Exception e) {
@@ -57,7 +61,7 @@ public class BlackBoxTest {
 		
 		//D - Valid employee name and invalid activity name
 		try {
-			invalidActivity2 = project.getActivityByName("Fødselsdag");
+			invalidActivity2 = project.getActivityByName("Fï¿½dselsdag");
 			invalidActivity2.assignEmployee(sh.getEmployeeByID("mads"));
 			fail("");
 		} catch(Exception e) {

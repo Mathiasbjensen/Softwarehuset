@@ -2,6 +2,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import Program.OperationNotAllowedException;
+import Program.Softwarehuset;
+
 public class AddEmployeeWhiteBoxTest {
 
 	Softwarehuset sh = new Softwarehuset();
