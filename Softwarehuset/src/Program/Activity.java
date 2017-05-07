@@ -76,11 +76,4 @@ public class Activity {
 		return totalHours;
 	}
 	
-	// Til test
-	public void main(String[] args) {
-		Activity hans = new Activity(200, 1,2,"hans", project);
-		Activity skod = new Activity(300,2,3,"grete", project);
-		hans.setBudgetTime(2);
-		System.out.println(hans.getETA());
-	}
 }

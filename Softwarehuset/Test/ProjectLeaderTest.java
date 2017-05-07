@@ -35,6 +35,10 @@ public class ProjectLeaderTest {
 		projectLeader.addEmployeeToActivity("Kursus", "Anne");
 		projectLeader.addEmployeeToActivity("GUI", "Hans");
 		System.out.println(projectLeader.findFreeEmployees(2, 3).size());
-		assertEquals(projectLeader.findFreeEmployees(2, 3).size(),0);
+		for (int i = 1; i <=19; i++) {
+			projectLeader.addActivity(100, 3, 6, "freeEmployeesActivityTest"+i);
+			projectLeader.addEmployeeToActivity(activity, employee);
+		}
+		
 	}
 }
