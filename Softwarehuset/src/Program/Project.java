@@ -28,12 +28,15 @@ public class Project {
 	
 	// Assigns an employee to a project leader
 	public void assignProjectLeader(String employeeID) throws OperationNotAllowedException {
-		
+		//Pre condition
+		assert (sh.getEmployees().contains(sh.getEmployeeByID(employeeID))) == true;
 		try {
 			Employee employee = sh.getEmployeeByID(employeeID);
 
 			ProjectLeader projectLeader = new ProjectLeader(employee, sh, this);
 			this.projectleader = projectLeader;
+			
+			assert getProjectLeader() == projectLeader; //Post condition
 			
 		} catch (Exception e) {
 			throw new OperationNotAllowedException("That employee does not exist", "Assign project leader");
