@@ -22,6 +22,8 @@ public class Softwarehuset {
 
 
 	public void addEmployee(String ID) throws OperationNotAllowedException{
+		//Precondition
+		assert ID.length() == 4;
 		if(ID.length()== 4){ 
 
 			Employee newEmployee = new Employee(ID, this);
@@ -29,10 +31,13 @@ public class Softwarehuset {
 
 			for(int i = 0; i < freeEmployees.length; i++)
 				freeEmployees[i].add(newEmployee);
+			// post condition
+			assert employees.contains(newEmployee);
 		} 
 		else {
 			throw new OperationNotAllowedException("ID has to be 4 letters","Add employee");
-		}
+		}	
+		
 	}
 
 	public List<Employee> getEmployees() {
