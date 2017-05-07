@@ -10,9 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.*;
 
-
-import javax.swing.JList;
-
 public class Ui extends JFrame implements ActionListener {
 	
 
@@ -21,10 +18,11 @@ public class Ui extends JFrame implements ActionListener {
 	mainMenu, addEmployeeButton, searchForEmployeeButton, addActivityButton, 
 	assignProjectLeader, addActivity, findActivity, iAmProjectLeader, setWorkHoursButton, addEmployeeToActivity,
 	 projectLeaderButtonFinal, searchActivity, getFreeEmployees, employeesConnectedToActivity, registerTime, 
-	 register, addEmployeeToActivityButton, searchFreeEmployees, seeWorkHoursButton; 
+	 register, addEmployeeToActivityButton, searchFreeEmployees, seeWorkHoursButton, updateActivity,
+	 setBudget, changeStart, changeEnd; 
 	private static JTextField whatProject, expectedTimeTxt, nameOfEmployee, searchNameOfEmployeeTxt, 
 	whatActivity, howManyHours, employeeNameTxt, activityNameTxt1, startWeek, endWeek, whatEmployee,
-	workHoursTxt, whatActivityTxt;
+	workHoursTxt, whatActivityTxt, setBudgetTime, setStart, setEnd;
 	private static JList listOfEmployees; 
 	private static Softwarehuset sh = new Softwarehuset();
 	private static Project project;
@@ -32,7 +30,8 @@ public class Ui extends JFrame implements ActionListener {
 	addEmployeeToActivityEmployeeNameLabel, addEmployeeToActivityNameLabel,
 	setWorkHoursLab, whatActivityLab, whatProjectLab;
 	private Dimension fieldsize, panelsize, txtsize, jPanelsize;
-	private JPanel mainMenuPanel, addActivityPanelTxt, addEmployeeToActivityPanelTxt, addEmployeeToActivityLabelPanel, addEmployeeToActivityButtonPanel;
+	private JPanel mainMenuPanel, addActivityPanelTxt, addEmployeeToActivityPanelTxt, 
+	addEmployeeToActivityLabelPanel, addEmployeeToActivityButtonPanel, updateActivityPanelTxt;
 	private JTextField budgetTimeTxt;
 	private JTextField startTimeTxt;
 	private JTextField endTimeTxt;
@@ -46,6 +45,10 @@ public class Ui extends JFrame implements ActionListener {
 	private Activity activity;
 	private ProjectLeader projectLeader;
 	private Employee employee;
+	private JPanel updateactivityButtonPanel;
+	private JLabel updateActivityLabel;
+	private JPanel updateActivityPanel;
+	private JTextField setBudgetTimeTxt;
 
 
 
@@ -131,6 +134,7 @@ public class Ui extends JFrame implements ActionListener {
 		addActivity = makingJButton("Add an activity to project");
 		addEmployeeToActivity = makingJButton("Add employee to an activity");
 		getFreeEmployees = makingJButton("Find free employees");
+		updateActivity = makingJButton("Update Activity");
 
 		projectLeaderButtonFinal = makingJButton("Assign");
 		whatActivity = makingJTextField(fieldsize);
@@ -148,6 +152,16 @@ public class Ui extends JFrame implements ActionListener {
 		startWeek = makingJTextField(fieldsize);
 		endWeek = makingJTextField(fieldsize);
 		searchFreeEmployees = makingJButton("Search");
+		
+		// Ændre aktivitet
+		setBudgetTime = makingJTextField(fieldsize);
+		setStart = makingJTextField(fieldsize);
+		setEnd = makingJTextField(fieldsize);
+		setBudget = makingJButton("Set budget time");
+		changeEnd = makingJButton("Set end week");
+		changeStart = makingJButton("Set start week");
+		
+		
 		
 	}
 	
@@ -401,18 +415,84 @@ public class Ui extends JFrame implements ActionListener {
 				buttonpanelProjectLeader.add(addActivity);
 				buttonpanelProjectLeader.add(addEmployeeToActivity);
 				buttonpanelProjectLeader.add(getFreeEmployees);
+				buttonpanelProjectLeader.add(updateActivity);
 				
 				buttonpanelProjectLeader.add(mainMenu);
 				
 				getContentPane().setLayout(new BorderLayout());
 //				getContentPane().add(textpanel, BorderLayout.CENTER);
 				getContentPane().add(buttonpanelProjectLeader, BorderLayout.CENTER);
-			
-			
-				
 				
 			// Add activity 1
 		}
+		
+		if (arg0.getSource() == updateActivity) {
+			getContentPane().setVisible(false);
+			getContentPane().removeAll();
+			getContentPane().setVisible(true);
+			updateActivityPanelTxt = makingJPanel(jPanelsize);
+			setBudgetTimeTxt = makingJTextField(fieldsize);
+			setStart = makingJTextField(fieldsize);
+			setEnd = makingJTextField(fieldsize);
+			updateActivityPanelTxt.add(whatActivity);
+			updateActivityPanelTxt.add(setBudgetTimeTxt);
+			updateActivityPanelTxt.add(setStart);
+			updateActivityPanelTxt.add(setEnd);
+			updateactivityButtonPanel = makingJPanel(jPanelsize);
+			setBudget = makingJButton("Set budget time");
+			changeEnd = makingJButton("Set end week");
+			changeStart = makingJButton("Set start week");
+			updateactivityButtonPanel.add(setBudget);
+			updateactivityButtonPanel.add(changeStart);
+			updateactivityButtonPanel.add(changeEnd);
+			updateactivityButtonPanel.add(mainMenu);
+			updateActivityPanel = makingJPanel(jPanelsize);
+			activityNameLabel = makingJLabel("Activity name:", panelsize);
+			budgetTimeLabel = makingJLabel("Change budget time:", panelsize);
+			startTimeLabel = makingJLabel("Change start week:", panelsize);
+			endTimeLabel = makingJLabel("Change end week:", panelsize);
+			updateActivityPanel.add(activityNameLabel);
+			updateActivityPanel.add(budgetTimeLabel);
+			updateActivityPanel.add(startTimeLabel);
+			updateActivityPanel.add(endTimeLabel);
+
+			getContentPane().setLayout(new BorderLayout());
+			getContentPane().add(updateActivityPanel, BorderLayout.WEST);
+			getContentPane().add(updateactivityButtonPanel, BorderLayout.EAST);
+			getContentPane().add(updateActivityPanelTxt, BorderLayout.CENTER);
+			
+		}
+		if (arg0.getSource() == setBudget) {
+			try {
+				project.getActivityByName(whatActivity.getText()).setBudgetTime(Integer.parseInt(setBudgetTimeTxt.getText()));
+				setBudgetTimeTxt.setText("Budget Time has been changed.");
+			} catch (NumberFormatException e) {
+				setBudgetTimeTxt.setText("Illegal input");
+			} catch (Exception e) {
+				setBudgetTimeTxt.setText(e.getMessage());
+			}
+		}
+		if (arg0.getSource() == changeStart) {
+			try {
+				project.getActivityByName(whatActivity.getText()).setStart(Integer.parseInt(setStart.getText()));
+				setStart.setText("Start has been changed.");
+			} catch (NumberFormatException e) {
+				setStart.setText("Illegal Input");
+			} catch (Exception e) {
+				setStart.setText(e.getMessage());
+			}
+		}
+		if (arg0.getSource() == changeEnd) {
+			try {
+				project.getActivityByName(whatActivity.getText()).setEnd(Integer.parseInt(setEnd.getText()));
+				setEnd.setText("End has been changed.");
+			} catch (NumberFormatException e) {
+				setEnd.setText("Illegal Input");
+			} catch (Exception e) {
+				setEnd.setText(e.getMessage());
+			}
+		}
+		
 		if (arg0.getSource() == addActivity) {
 			getContentPane().setVisible(false);
 			getContentPane().removeAll();
@@ -758,6 +838,7 @@ public class Ui extends JFrame implements ActionListener {
 			sh.addEmployee("anne");
 
 		} catch (Exception e) {
+			
 		}
 	
 	}
