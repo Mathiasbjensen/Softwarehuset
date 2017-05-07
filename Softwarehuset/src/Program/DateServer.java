@@ -2,6 +2,7 @@ package Program;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 public class DateServer {
+
 	
 	public int getYear() {
 		int year = Calendar.getInstance().get(Calendar.YEAR);

@@ -21,7 +21,8 @@ public class ProjectLeader {
 
 	}
 	public double getProjectReport(){
-		return project.getRemainingTime();
+		double x = project.getRemainingTime();
+		return x;
 	}
 	
 	public void addEmployeeToActivity(String activity, String employee) throws OperationNotAllowedException {
