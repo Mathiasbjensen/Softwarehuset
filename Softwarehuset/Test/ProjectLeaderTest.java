@@ -15,8 +15,8 @@ public class ProjectLeaderTest {
 		sh.addEmployee("Anne");
 		sh.addProject("projectTest", 250, sh);
 		project = sh.getProjectByName("projectTest");
-		project.addActivity(30, 1, 4, "Kursus");
-		project.addActivity(55, 2, 5, "GUI");
+		project.addActivity(30, 1, 5, "Kursus");
+		project.addActivity(55, 1, 5, "GUI");
 		project.assignProjectLeader("Anne");
 		projectLeader = project.getProjectLeader();
 	}
@@ -34,11 +34,16 @@ public class ProjectLeaderTest {
 		assertEquals(projectLeader.findFreeEmployees(1, 5).size(),2);
 		projectLeader.addEmployeeToActivity("Kursus", "Anne");
 		projectLeader.addEmployeeToActivity("GUI", "Hans");
-		System.out.println(projectLeader.findFreeEmployees(2, 3).size());
 		for (int i = 1; i <=19; i++) {
-			projectLeader.addActivity(100, 3, 6, "freeEmployeesActivityTest"+i);
-			projectLeader.addEmployeeToActivity(activity, employee);
+			projectLeader.addActivity(100, 2, 3, "freeEmployeesActivityTest"+i);
+			projectLeader.addEmployeeToActivity("freeEmployeesActivityTest"+i, "Hans");
+			projectLeader.addEmployeeToActivity("freeEmployeesActivityTest"+i, "Anne");
+		
 		}
+
+			assertEquals(sh.getFreeEmployees(2, 3).size(),0);
+		
+		
 		
 	}
 }

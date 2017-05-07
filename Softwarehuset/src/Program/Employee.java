@@ -34,6 +34,9 @@ public class Employee {
 	}
 
 	public void isEmployeeFree(Activity activity) throws Exception{
+		// Precondition
+		assert activity != null;
+		
 		//Checking if the employee has enough weeks available to be assigned to the activity.
 		for(int i = activity.getStart()-1; i <= activity.getEnd()-1; i++) {
 			if(weekCalendar[i].contains(activity) ) {
