@@ -9,7 +9,6 @@ public class Project {
 	private double expectedTime;
 	private Softwarehuset sh;
 	private List<Activity> activities = new ArrayList<Activity>();
-	// Stupid to have an array for ONE projectleader??
 	private ProjectLeader projectleader;
 	
 	
@@ -52,13 +51,23 @@ public class Project {
 
 	public void addActivity(int budgetTime, int start, int end, String activityName) throws OperationNotAllowedException {
 		Activity activity = new Activity(budgetTime, start, end, activityName, this);
-		if (!activities.contains(activity)) {
+		boolean checker = false;
+		
+		for (int i = 0; i < activities.size(); i++) {
+			if(activities.get(i).getActivityName() == activityName) {
+				checker = true;
+				throw new OperationNotAllowedException("That activity name is already taken.", "Add activity.");
+			}
+			
+		}
+		
+		if (checker == false && (start > 0 && start < 53) && (end > 0 && end < 53 ) && budgetTime > 0){
 		activities.add(activity);
 	}
-		else if (!activities.contains(activity)) { 
-			throw new OperationNotAllowedException("That activity name is already taken.", "Add activity.");
-		}
-		else if ((start > 0 && start < 53) || (end > 0 && end < 53)) {
+//		else if (activities.contains(activity)) { 
+//			throw new OperationNotAllowedException("That activity name is already taken.", "Add activity.");
+//		}
+		else if ((start < 0 || start > 53) || (end < 0 || end > 53)) {
 			throw new OperationNotAllowedException("The start and end weeks have to be between 1 and 52.", "add activity");
 		}
 		else if (budgetTime < 0) {
@@ -77,9 +86,8 @@ public class Project {
 	        
 		}
 		throw new OperationNotAllowedException("No activity with that name", "Get activity by name");
-
-
 		}
+	
 	public void changeExpectedTime(double i) {
 		this.expectedTime = expectedTime + i;
 	}
@@ -89,6 +97,15 @@ public class Project {
 			expectedTime = expectedTime + activities.get(i).getETA();
 		}
 		return remainingtime;
+	}
+	
+	public List<Activity> getActivities() throws OperationNotAllowedException {
+		if (activities.isEmpty()) {
+			throw new OperationNotAllowedException("No activivities exists in this project.","get activities");
+		}
+		else {
+		return activities;
+	}
 	}
 	
 

@@ -89,22 +89,98 @@ public class BlackBoxTest {
 	@Test
 	public void UseCase3Test() throws Exception {
 		
+		
 		// A - All 4 parameters are valid
 		try {
-			project2.addActivity(150, 5, 10, "Gui");
-			project2.getActivityByName("Gui");
+			project2.addActivity(150, 5, 10, "GUI");
+			assertEquals(project2.getActivities().size(),1);
+			
 			
 		}catch (Exception e) {
 			fail("");
 		}
-		// B
+		
+		
+		// B - Negative Budget Time
 		try {
-			project2.addActivity(-100, 0, 100, "Gui");
+			project2.addActivity(-150, 1, 2, "abe");
 			fail("");
 		} catch (Exception e) {
+			assertEquals("BudgetTime has to be positive", e.getMessage());
+			assertEquals(project2.getActivities().size(), 1);
 			
-			e.printStackTrace();
 		}
+		// C - Negative start week and a too big end week.
+		try {
+			project2.addActivity(150, -5, 55, "another GUI");
+			fail("");
+		} catch (Exception e) {
+			assertEquals("The start and end weeks have to be between 1 and 52.", e.getMessage());
+			assertEquals(project2.getActivities().size(), 1);
+			
+		}
+		
+		// D - Too big start week and a negative end week
+		
+		try {
+			project2.addActivity(150, 55, -5, "another GUI");
+			fail("");
+		} catch (Exception e) {
+			assertEquals("The start and end weeks have to be between 1 and 52.", e.getMessage());
+			assertEquals(project2.getActivities().size(), 1);
+		}
+		
+		// E - All parameters are valid, except the activity name which already exists
+		
+		try {
+			project2.addActivity(150, 1, 2, "GUI");
+			assertEquals(project2.getActivities().size(),2);
+			fail("");
+		} catch (Exception e) {
+			assertEquals("That activity name is already taken.", e.getMessage());
+//			assertEquals(project2.getActivities().size(), 1);
+			
+			
+		
+		}
+	
+				
+	}
+	
+	@Test
+	public void useCase2Test() throws Exception {
+		
+		// A - Adding a project with valid parameters
+		assertEquals(sh.getProjects().size(),2);
+		try {
+			sh.addProject("Some Project", 500, sh);
+			assertEquals(sh.getProjects().size(),3);
+			
+		}catch(Exception e) {
+			fail("");
+		}
+	
+	// B - Trying to add a project with negative expected time 
+	
+	try {
+		sh.addProject("Some other project", -500, sh);
+		fail("");
+		
+	}catch(Exception e) {
+		assertEquals("Expected time has to be positive", e.getMessage());
+		assertEquals(sh.getProjects().size(),3);
+	}
+	
+	// C - Trying to add a project with a name already in use
+	try {
+		sh.addProject("Some Project", 500, sh);
+		fail("");
+	}catch(Exception e) {
+		assertEquals("A project with that name already exists.", e.getMessage());
+		assertEquals(sh.getProjects().size(),3);
+		
+	}
+	
 	}
 	
 
