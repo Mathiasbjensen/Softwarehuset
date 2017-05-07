@@ -32,18 +32,12 @@ public class Project {
 		
 		try {
 			Employee employee = sh.getEmployeeByID(employeeID);
-			if(sh.getEmployees().contains(employee)) {
 
 			ProjectLeader projectLeader = new ProjectLeader(employee, sh, this);
 			this.projectleader = projectLeader;
-
 			
-			}
-			else {
-				throw new OperationNotAllowedException("That employee does not exist", "Assign project leader");
-			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new OperationNotAllowedException("That employee does not exist", "Assign project leader");
 		}
 	}
 	
