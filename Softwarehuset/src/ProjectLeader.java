@@ -34,11 +34,6 @@ public class ProjectLeader {
 		} 
 
 		
-	//		else if (!sh.getEmployees().contains(employee)) {
-	//			throw new OperationNotAllowedException("Employee does not exist", "assign employee to activity");
-	//		}
-
-		
 	
 	public ArrayList<Employee> findFreeEmployees(int weekStart, int weekEnd) throws OperationNotAllowedException {
 		ArrayList<Employee> free = new ArrayList<Employee>();	
