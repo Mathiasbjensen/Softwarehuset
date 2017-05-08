@@ -36,8 +36,10 @@ public class Softwarehuset {
 
 			for(int i = 0; i < freeEmployees.length; i++) {
 				freeEmployees[i].add(newEmployee);
+
 			}
 		}
+		
 		else {
 			throw new OperationNotAllowedException("ID has to be 4 characters (including numbers)","Add employee");
 		}	
