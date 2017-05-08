@@ -29,6 +29,7 @@ public class Project {
 	// Assigns an employee to a project leader
 	public void assignProjectLeader(String employeeID) throws OperationNotAllowedException {
 
+
 		try {
 			Employee employee = sh.getEmployeeByID(employeeID);
 
@@ -78,7 +79,6 @@ public class Project {
 	        if(activities.get(i).getActivityName().equals(activityName)) {
 	            return activities.get(i);
 	        } 
-	        
 		}
 		throw new OperationNotAllowedException("No activity with that name", "Get activity by name");
 		}

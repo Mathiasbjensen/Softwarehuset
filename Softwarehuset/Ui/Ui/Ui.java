@@ -27,11 +27,12 @@ public class Ui extends JFrame implements ActionListener {
 	private static Softwarehuset sh = new Softwarehuset();
 	private static Project project;
 	private JLabel projectNameLab, expectedTimeLab, employeeName, activityName,  
-	addEmployeeToActivityEmployeeNameLabel, addEmployeeToActivityNameLabel,
+	addEmployeeToActivityEmployeeNameLabel, addEmployeeToActivityNameLabel, registerTimeLabel,
 	setWorkHoursLab, whatActivityLab, whatProjectLab;
 	private Dimension fieldsize, panelsize, txtsize, jPanelsize;
 	private JPanel mainMenuPanel, addActivityPanelTxt, addEmployeeToActivityPanelTxt, 
-	addEmployeeToActivityLabelPanel, addEmployeeToActivityButtonPanel, updateActivityPanelTxt;
+	addEmployeeToActivityLabelPanel, addEmployeeToActivityButtonPanel, updateActivityPanelTxt,
+	registerTimePanel;
 	private JTextField budgetTimeTxt;
 	private JTextField startTimeTxt;
 	private JTextField endTimeTxt;
@@ -351,14 +352,16 @@ public class Ui extends JFrame implements ActionListener {
 		
 	//////////////////////////////////////////////////////////////////////
 		if (arg0.getSource() == okButton) {
-			int expectedTime2 = Integer.parseInt(expectedTimeTxt.getText());
+			
 			try {
+				int expectedTime2 = Integer.parseInt(expectedTimeTxt.getText());
 				sh.addProject(whatProject.getText(), expectedTime2, sh);
 				whatProject.setText("Project has been added");
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
+			} catch (OperationNotAllowedException e) {
 				whatProject.setText(e.getMessage());
-			}
+			} catch (NumberFormatException e) {
+				whatProject.setText("Input must be an integer");
+			} 
 			
 		}
 		// Main menu button function
@@ -660,23 +663,24 @@ public class Ui extends JFrame implements ActionListener {
 		if (arg0.getSource() == searchActivity) {
 			try {
 				this.activity = project.getActivityByName(whatActivity.getText());
+				getContentPane().setVisible(false);
+				getContentPane().removeAll();
+				getContentPane().setVisible(true);
+				
+				JPanel buttonPanelActivity = makingJPanel(jPanelsize);
+				buttonPanelActivity.add(employeesConnectedToActivity);
+				buttonPanelActivity.add(registerTime);
+//				buttonPanelActivity.add();
+				buttonPanelActivity.add(mainMenu);
+				
+				
+				getContentPane().setLayout(new BorderLayout());
+				getContentPane().add(buttonPanelActivity);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				whatActivity.setText("No activity with that name");
 			}
-			getContentPane().setVisible(false);
-			getContentPane().removeAll();
-			getContentPane().setVisible(true);
 			
-			JPanel buttonPanelActivity = makingJPanel(jPanelsize);
-			buttonPanelActivity.add(employeesConnectedToActivity);
-			buttonPanelActivity.add(registerTime);
-//			buttonPanelActivity.add();
-			buttonPanelActivity.add(mainMenu);
-			
-			
-			getContentPane().setLayout(new BorderLayout());
-			getContentPane().add(buttonPanelActivity);
 		}
 		if (arg0.getSource() == registerTime) {
 			getContentPane().setVisible(false);
@@ -686,6 +690,11 @@ public class Ui extends JFrame implements ActionListener {
 			textpanel.add(whatEmployee);
 			textpanel.add(howManyHours,BorderLayout.CENTER);
 			JPanel buttonpanelProjects = makingJPanel(jPanelsize);
+			employeeName = makingJLabel("Employee Name", panelsize);
+			registerTimeLabel = makingJLabel("Time to register", panelsize);
+			registerTimePanel = makingJPanel(jPanelsize);
+			registerTimePanel.add(employeeName);
+			registerTimePanel.add(registerTimeLabel);
 			buttonpanelProjects.setLayout(new BoxLayout(buttonpanelProjects, BoxLayout.Y_AXIS));
 			buttonpanelProjects.add(register);
 			buttonpanelProjects.add(mainMenu);
@@ -693,6 +702,7 @@ public class Ui extends JFrame implements ActionListener {
 			getContentPane().setLayout(new BorderLayout());
 			getContentPane().add(textpanel, BorderLayout.CENTER);
 			getContentPane().add(buttonpanelProjects, BorderLayout.EAST);
+			getContentPane().add(registerTimePanel, BorderLayout.WEST);
 			
 		}
 		if (arg0.getSource() == register) {
@@ -792,7 +802,7 @@ public class Ui extends JFrame implements ActionListener {
 		addEmployee = makingJButton("Add Employee");
 		buttonpanel.add(addEmployee);
 		
-		employeeList = makingJButton("List of employees");
+		employeeList = makingJButton("Search for employee");
 		buttonpanel.add(employeeList);
 		
 		okButton = makingJButton("OK");
@@ -822,24 +832,24 @@ public class Ui extends JFrame implements ActionListener {
 		test.setResizable(false);
 		
 		// Premade projects etc.
-		try {
-			sh.addProject("skod", 123, sh);
-			sh.addEmployee("hans");
-			sh.addEmployee("anne");
-
-			sh.addEmployee("abcd");
-			sh.addEmployee("lort");
-			sh.addEmployee("skid");
-			sh.getProjectByName("skod").addActivity(123, 32, 34, "test");
-//			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("hans"));
-//			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("abcd"));
-//			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("lort"));
-//			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("skid"));
-			sh.addEmployee("anne");
-
-		} catch (Exception e) {
-			
-		}
+//		try {
+//			sh.addProject("skod", 123, sh);
+//			sh.addEmployee("hans");
+//			sh.addEmployee("anne");
+//
+//			sh.addEmployee("abcd");
+//			sh.addEmployee("lort");
+//			sh.addEmployee("skid");
+//			sh.getProjectByName("skod").addActivity(123, 32, 34, "test");
+////			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("hans"));
+////			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("abcd"));
+////			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("lort"));
+////			sh.getProjectByName("skod").getActivityByName("test").assignEmployee(sh.getEmployeeByID("skid"));
+//			sh.addEmployee("anne");
+//
+//		} catch (Exception e) {
+//			
+//		}
 	
 	}
 	
