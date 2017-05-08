@@ -1,3 +1,4 @@
+package Test;
 //Lavet af Sebastian Fischer s164158
 import static org.junit.Assert.*;
 import Program.*;

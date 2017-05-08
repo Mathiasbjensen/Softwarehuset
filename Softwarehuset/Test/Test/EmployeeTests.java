@@ -1,3 +1,4 @@
+package Test;
 //Lavet af Frederik Kirkegaard s164159
 import Program.*;
 import org.junit.Test;

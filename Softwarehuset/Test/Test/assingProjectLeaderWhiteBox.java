@@ -1,3 +1,4 @@
+package Test;
 //Lavet af Frederik Kirkegaard s165509.
 import static org.junit.Assert.*;
 

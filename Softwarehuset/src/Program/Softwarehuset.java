@@ -26,8 +26,8 @@ public class Softwarehuset {
 		
 		if(ID.length()== 4){ // 1
 			
-			for (int i = 0; i < employees.size(); i++) { // 2
-				if (employees.get(i).getID().equals(ID)) {
+			for (int i = 0; i < employees.size(); i++) { 
+				if (employees.get(i).getID().equals(ID)) { // 2
 					throw new OperationNotAllowedException("Allready an employee with this ID","Add employee");
 				}
 			}
