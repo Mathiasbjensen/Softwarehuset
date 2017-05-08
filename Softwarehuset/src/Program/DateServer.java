@@ -1,4 +1,5 @@
 package Program;
+//Lavet af Mathias Bo Jensen s164159
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 public class DateServer {

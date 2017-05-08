@@ -1,4 +1,5 @@
 package Program;
+//Lavet af Frederik Kirkegaars s165509
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -46,7 +47,6 @@ public class Employee {
 			}
 		}
 
-		assert true; //Post condition
 		return true;
 
 	}

@@ -1,4 +1,5 @@
 package Ui;
+//Lavet af alle i gruppen
 import Program.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
