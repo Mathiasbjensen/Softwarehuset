@@ -29,13 +29,13 @@ public class Project {
 	// Assigns an employee to a project leader
 	public void assignProjectLeader(String employeeID) throws OperationNotAllowedException {
 		
-		try {
+		try { // 1
 			Employee employee = sh.getEmployeeByID(employeeID);
 
 			ProjectLeader projectLeader = new ProjectLeader(employee, sh, this);
 			this.projectleader = projectLeader;
 			
-		} catch (Exception e) {
+		} catch (Exception e) { 
 			throw new OperationNotAllowedException("That employee does not exist", "Assign project leader");
 		}
 	}
@@ -78,7 +78,6 @@ public class Project {
 	        if(activities.get(i).getActivityName().equals(activityName)) {
 	            return activities.get(i);
 	        } 
-	        
 		}
 		throw new OperationNotAllowedException("No activity with that name", "Get activity by name");
 		}

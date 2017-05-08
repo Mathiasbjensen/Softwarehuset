@@ -23,19 +23,26 @@ public class Softwarehuset {
 
 	public void addEmployee(String ID) throws OperationNotAllowedException{
 		//Precondition
-		assert ID.length() == 4;
-		if(ID.length()== 4){ 
+		
+		if(ID.length()== 4){ // 1
+			
+			for (int i = 0; i < employees.size(); i++) { // 2
+				if (employees.get(i).getID().equals(ID)) {
+					throw new OperationNotAllowedException("Allready an employee with this ID","Add employee");
+				}
+			}
 
 			Employee newEmployee = new Employee(ID, this);
 			employees.add(newEmployee);
 
-			for(int i = 0; i < freeEmployees.length; i++)
+			for(int i = 0; i < freeEmployees.length; i++) {
 				freeEmployees[i].add(newEmployee);
+			}
 			// post condition
 			assert employees.contains(newEmployee);
 		} 
 		else {
-			throw new OperationNotAllowedException("ID has to be 4 letters","Add employee");
+			throw new OperationNotAllowedException("ID has to be 4 characters (including numbers)","Add employee");
 		}	
 		
 	}
@@ -71,7 +78,7 @@ public class Softwarehuset {
 		}
 	}
 
-	public void addProject(String projectName, int expectedTime, Softwarehuset softwarehuset) throws Exception {
+	public void addProject(String projectName, int expectedTime, Softwarehuset softwarehuset) throws OperationNotAllowedException {
 
 		for(int i = 0; i < projects.size(); i++) {
 			if(projects.get(i).getProjectName().equals(projectName)) {

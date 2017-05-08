@@ -33,20 +33,20 @@ public class Employee {
 		return ID;
 	}
 
-	public void isEmployeeFree(Activity activity) throws Exception{
+	public boolean isEmployeeFree(Activity activity) throws Exception{
 		// Precondition
 		assert activity != null;
 		
 		//Checking if the employee has enough weeks available to be assigned to the activity.
-		for(int i = activity.getStart()-1; i <= activity.getEnd()-1; i++) {
-			if(weekCalendar[i].contains(activity) ) {
+		for(int i = activity.getStart()-1; i <= activity.getEnd()-1; i++) { // 1
+			if(weekCalendar[i].contains(activity) ) { // 2
 				throw new OperationNotAllowedException("Employee already assigned to that activity", "add Assigned Activity");
 			}
-			else if(weekCalendar[i].size() >= 20) {
+			else if(weekCalendar[i].size() >= 20) { // 3
 				throw new OperationNotAllowedException("The employee is already assigned to 20 other activities in week: "+i,"add Assigned Activity");
 			}
 		}
-		
+		return true;
 	}
 	public void updateListOfActivity(Activity activity) {
 		

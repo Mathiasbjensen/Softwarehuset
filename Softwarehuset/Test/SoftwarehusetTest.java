@@ -26,7 +26,7 @@ public class SoftwarehusetTest {
 		fail("OperationNotAllowedException should have been thrown");
 		
 		} catch (OperationNotAllowedException e) {
-			assertEquals("ID has to be 4 letters",e.getMessage());
+			assertEquals("ID has to be 4 characters (including numbers)",e.getMessage());
 			assertEquals("Add employee",e.getOperation());
 		}
 		assertEquals(0,sh.getEmployees().size());
