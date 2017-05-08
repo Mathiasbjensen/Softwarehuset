@@ -35,7 +35,7 @@ public class Employee {
 
 	public void isEmployeeFree(Activity activity) throws Exception{
 		
-		assert activity != null; // Precondition
+
 		//Checking if the employee has enough weeks available to be assigned to the activity.
 		for(int i = activity.getStart()-1; i <= activity.getEnd()-1; i++) {
 			if(weekCalendar[i].contains(activity) ) {
@@ -45,7 +45,6 @@ public class Employee {
 				throw new OperationNotAllowedException("The employee is already assigned to 20 other activities in week: "+i,"add Assigned Activity");
 			}
 		}
-		assert true; //Post condition
 	}
 	public void updateListOfActivity(Activity activity) {
 		
