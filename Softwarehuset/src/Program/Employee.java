@@ -33,9 +33,8 @@ public class Employee {
 		return ID;
 	}
 
+
 	public boolean isEmployeeFree(Activity activity) throws Exception{
-		// Precondition
-		assert activity != null;
 		
 		//Checking if the employee has enough weeks available to be assigned to the activity.
 		for(int i = activity.getStart()-1; i <= activity.getEnd()-1; i++) { // 1
@@ -46,7 +45,10 @@ public class Employee {
 				throw new OperationNotAllowedException("The employee is already assigned to 20 other activities in week: "+i,"add Assigned Activity");
 			}
 		}
+
+		assert true; //Post condition
 		return true;
+
 	}
 	public void updateListOfActivity(Activity activity) {
 		

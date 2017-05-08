@@ -22,7 +22,6 @@ public class Softwarehuset {
 
 
 	public void addEmployee(String ID) throws OperationNotAllowedException{
-		//Precondition
 		
 		if(ID.length()== 4){ // 1
 			
@@ -31,16 +30,13 @@ public class Softwarehuset {
 					throw new OperationNotAllowedException("Allready an employee with this ID","Add employee");
 				}
 			}
-
 			Employee newEmployee = new Employee(ID, this);
 			employees.add(newEmployee);
 
 			for(int i = 0; i < freeEmployees.length; i++) {
 				freeEmployees[i].add(newEmployee);
 			}
-			// post condition
-			assert employees.contains(newEmployee);
-		} 
+		}
 		else {
 			throw new OperationNotAllowedException("ID has to be 4 characters (including numbers)","Add employee");
 		}	
